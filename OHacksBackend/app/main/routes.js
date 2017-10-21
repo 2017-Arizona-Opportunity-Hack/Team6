@@ -59,11 +59,6 @@ module.exports = function(app, passport) {
 			if(err) return err;
 			res.json(201, json);
 		});
-
-		// dog.create(req.body, function(err, post) {
-		// 	if(err) return err;
-		// 	res.json(post);
-		// });
 	});
 
 	app.post('/fosteredDogFound', function(req, res){
