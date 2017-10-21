@@ -6,11 +6,11 @@ var mongoose = require('mongoose');
 
 var schema = mongoose.Schema({
         Admin : {
-                main : {
-					email : String,
-					name : String,
-					password : String,
-                },
-        }});
+                google : {
+                    id : String,
+                    token : String,
+                    email : String,
+                    name : String,
+				}}});
 
 module.exports = mongoose.model('Admin', schema);

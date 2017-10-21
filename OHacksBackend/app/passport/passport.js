@@ -22,8 +22,6 @@ module.exports = function(passport, auth) {
 	});
 	
 	// GOOGLE AUTHENTICATION
-	
-	
 	passport.use(new GoogleStrategy({ // GET EXISTING PARAMETERS FOR GOOGLE AUTH FROM AUTH.JS
 		clientID : auth.googleAuth.clientId,
 		clientSecret : auth.googleAuth.clientSecret,

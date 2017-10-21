@@ -1,13 +1,9 @@
 // -------------------------------------------------------------------------------//
 // ---------------------- HANDLES ROUTES FROM THE CLIENT ------------------------//
 // -------------------------------------------------------------------------------//
-<<<<<<< HEAD
-// var dog = require('/app/database/FosteredDog.js');
-// var foster = require('/app/database/Foster.js');
-=======
+
 var dog = require('../database/FosteredDog.js');
 var foster = require('../database/Foster.js');
->>>>>>> 8bb113c2a1946640af9f8ea6bf0c6043eadbfff9
 module.exports = function(app, passport) {
 
 	/************************ ROUTES FOR RENDERING PAGES ***********************/
@@ -29,7 +25,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', function(req, res){
-
+		res.send("dog add shit");
 	});
 
 	/************************ GOOGLE PLUS AUTHENTICATION ***********************/
@@ -41,7 +37,7 @@ module.exports = function(app, passport) {
 	// the callback after google has authenticated the user
 	app.get('/auth/google/callback',
 			passport.authenticate('google', {
-					successRedirect : '/dashboard',
+					successRedirect : '/dogadd',
 					failureRedirect : '/login'
 			}));
 
