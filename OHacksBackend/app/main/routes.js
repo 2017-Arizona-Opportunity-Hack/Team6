@@ -90,13 +90,21 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
-	app.post('/addFosterPreferences', function(req, res){
-		var fosterPreference = new foster({
-			preferences: req.body.preferences
-		});
-		fosterPreference.save(function(err, fosterPreference) {
-			if(err) return err;
-			res.json(fosterPreference);
+	app.post('/updateFosterPreferences', function(req, res){
+		foster.findOne(req.body.email, function(err, currFoster) {
+			if(err) {
+				res.send(404);
+				return err;
+			}
+			currFoster.preferences.user_location = req.body.user_location;
+			currFoster.preferences.time_needed_by = req.body.time_needed_by;
+			currFoster.preferences.breed = req.body.breed;
+			currFoster.preferences.weightRange = req.body.weightRange;
+			currFoster.preferences.ageRange = req.body.ageRange;
+			currFoster.save(function(err, json) {
+				if(err) return err;
+				res.json(204, json);
+			})
 		});
 	});
 
