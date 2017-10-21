@@ -71,7 +71,17 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/addFoster', function(req, res){
+		var fost = new foster({ Foster: {
+			main: {
+				email: req.body.email,
+				name: req.body.name,
+			}
+		}});
 
+		fost.save(function(err, json) {
+			if (err) return err;
+			res.json(201, json);
+		});
 	});
 
 	app.get('/sendNotifToUser', function(req, res){
