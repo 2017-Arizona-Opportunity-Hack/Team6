@@ -65,7 +65,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/addUserPreferences', function(req, res){
-		var foster =
+
 	});
 
 	app.get('/sendNotificationToAll', function(req, res){
