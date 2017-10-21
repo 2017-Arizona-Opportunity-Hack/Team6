@@ -14,7 +14,7 @@ var schema = mongoose.Schema({
 			has_owner : Boolean,
 			vaccination : {
 				vaccDate : String,
-				info : String,
+				info : String
 			}
         }});
 

@@ -45,10 +45,26 @@ module.exports = function(app, passport) {
 	/*************************** SERVER SIDE ROUTES ************************/
 
 	app.post('/addNeededDog', function(req, res){
-		dog.create(req.body, function(err, post) {
-			if(err) return err;
-			res.json(post);
+		dogPost = new dog({
+			time_needed_by: req.body.time_needed_by,
+			location : req.body.location,
+			type : req.body.type,
+			size : req.body.size,
+			owner_id : req.body.owner_id,
+			has_owner : req.body.has_owner,
+			vaccination : {
+				vaccDate : req.body.vaccDate,
+				info : req.body.info
 		});
+		dogPost.save(function(err, dogPost) {
+			if(err) return err;
+			res.json(dogPost);
+		});
+
+		// dog.create(req.body, function(err, post) {
+		// 	if(err) return err;
+		// 	res.json(post);
+		// });
 	});
 
 	app.post('/fosteredDogFound', function(req, res){
@@ -71,11 +87,11 @@ module.exports = function(app, passport) {
 
 	app.post('/addUserPreferences', function(req, res){
 		var fosterPreference = new foster({
-			fosterPreferences: req.body.preferences
+			preferences: req.body.preferences
 		});
-		fosterPreference.save(function(err,post) {
+		fosterPreference.save(function(err, fosterPreference) {
 			if(err) return err;
-			res.json(post);
+			res.json(fosterPreference);
 		});
 	});
 
