@@ -45,18 +45,16 @@ module.exports = function(app, passport) {
 	/*************************** SERVER SIDE ROUTES ************************/
 
 	app.post('/addNeededDog', function(req, res){
-		dogPost = new dog({
+		dogPost = new dog({ FosteredDog: {
 			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
-			type : req.body.type,
+			breed : req.body.type,
 			size : req.body.size,
 			owner_id : req.body.owner_id,
 			has_owner : req.body.has_owner,
-			vaccination : {
-				vaccDate : req.body.vaccDate,
-				info : req.body.info
-			}
-		});
+			vacc_date : req.body.vacc_date,
+			vacc_info : req.body.vacc_info
+		}});
 		dogPost.save(function(err, dogPost) {
 			if(err) return err;
 			res.json(201, dogPost);
