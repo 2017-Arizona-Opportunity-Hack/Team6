@@ -84,7 +84,7 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
-	app.post('/addUserPreferences', function(req, res){
+	app.post('/addFosterPreferences', function(req, res){
 		var fosterPreference = new foster({
 			preferences: req.body.preferences
 		});
