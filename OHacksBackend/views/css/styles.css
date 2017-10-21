@@ -1,4 +1,4 @@
-input[type=text], textarea {
+input[type=text] {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -24,4 +24,8 @@ input[type=submit]:hover {
 
 #adminLogin, #petEntry{
     margin-top:5%;
+}
+
+#pets{
+    margin-bottom: 2%;
 }
