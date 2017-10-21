@@ -25,8 +25,8 @@ module.exports = function(app, passport) {
 		res.render('login.ejs');
 	});
 
-	app.get('/dogadd', function(req, res){
-
+	app.get('/dogadd', isLoggedIn, function(req, res){
+		res.send("fuck me in the asshole");
 	});
 
 	/************************ GOOGLE PLUS AUTHENTICATION ***********************/

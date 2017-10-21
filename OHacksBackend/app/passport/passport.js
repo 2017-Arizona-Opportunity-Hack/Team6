@@ -44,9 +44,7 @@ module.exports = function(passport, auth) {
 					newUser.user.google.token = token;
 					newUser.user.google.name = profile.displayName;
 					newUser.user.google.email = profile.emails[0].value;
-					
-					newUser.user.data.trackedBills = [];
-					
+										
 					newUser.save(function(err){
 						if (err)
 							throw err;
