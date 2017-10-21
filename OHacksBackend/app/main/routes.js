@@ -2,6 +2,7 @@
 // ---------------------- HANDLES ROUTES FROM THE CLIENT ------------------------//
 // -------------------------------------------------------------------------------//
 var dog = require('app/database/FosteredDog.js');
+var foster = require('app/database/Foster.js');
 module.exports = function(app, passport) {
 
 	/************************ ROUTES FOR RENDERING PAGES ***********************/
@@ -65,7 +66,13 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/addUserPreferences', function(req, res){
-
+		fosterPreference = new foster({
+			fosterPreferences: req.body.preferences
+		})
+		fosterPreference.save(function(err,post) {
+			if(err) return err;
+			res.json(post);
+		})
 	});
 
 	app.get('/sendNotificationToAll', function(req, res){
