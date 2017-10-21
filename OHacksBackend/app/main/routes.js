@@ -55,6 +55,7 @@ module.exports = function(app, passport) {
 			vaccination : {
 				vaccDate : req.body.vaccDate,
 				info : req.body.info
+			}
 		});
 		dogPost.save(function(err, dogPost) {
 			if(err) return err;
