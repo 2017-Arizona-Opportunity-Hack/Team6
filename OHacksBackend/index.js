@@ -19,9 +19,8 @@ app.use(bodyParser.json());
 // STATIC FILES HANDLING
 app.use(express.static(__dirname + '/views'));
 
-// SOCKET.io setup
+// http setup
 var http = require('http').Server(app);
-var io = socket.listen(http);
 
 // PASSPORT INITIALIZATION
 var auth = require('./app/passport/auth.js');
@@ -31,8 +30,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // MONGODB INITIALIZATION
-var config = require('./app/database/database.js');
-mongoose.connect(config.url);
+//var config = require('./app/database/database.js');
+//mongoose.connect(config.url);
 
 // EXPRESS ROUTE INITIALIZATION
 require('./app/main/routes.js')(app, passport); // configures routes in routes.js

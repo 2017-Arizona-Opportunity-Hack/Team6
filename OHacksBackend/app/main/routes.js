@@ -1,7 +1,6 @@
 // -------------------------------------------------------------------------------//
 // ---------------------- HANDLES ROUTES FROM THE CLIENT ------------------------//
 // -------------------------------------------------------------------------------//
-var Bill = require('../database/Bill.js');
 
 module.exports = function(app, passport) {
 	
@@ -9,7 +8,7 @@ module.exports = function(app, passport) {
 	
 	// home page
 	app.get('/', function(req, res){
-		
+		res.send("hello");
 	});
 	
 	// login page; google plus auth
