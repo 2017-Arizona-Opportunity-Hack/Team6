@@ -55,9 +55,9 @@ module.exports = function(app, passport) {
 			vacc_date : req.body.vacc_date,
 			vacc_info : req.body.vacc_info
 		}});
-		dogPost.save(function(err, dogPost) {
+		dogPost.save(function(err, json) {
 			if(err) return err;
-			res.json(201, dogPost);
+			res.json(201, json);
 		});
 
 		// dog.create(req.body, function(err, post) {
