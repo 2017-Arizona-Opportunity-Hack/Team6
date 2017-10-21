@@ -5,7 +5,7 @@
         <title>Pet Entry</title>
         <link rel="shortcut icon" href="images/favicon.ico" />        
 
-        <link rel="stylesheet" href="styles.css">        
+        <link rel="stylesheet" href="css/styles.css">        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         
         <script src="https://use.fontawesome.com/276e132718.js"></script>
@@ -20,6 +20,21 @@
 
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location">
+
+                <label for="pets">Pets</label>                
+                <select class="form-control" id="pets" name="pets">
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="puppy">Puppy</option>
+                    <option value="kitten">Kitten</option>
+                </select>
+
+                <label for="size">Size</label>                                
+                <select class="form-control" id="size" name="size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
 
                 <input type="submit" value="Submit">
             </form>
