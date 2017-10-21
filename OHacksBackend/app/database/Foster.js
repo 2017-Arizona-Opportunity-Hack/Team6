@@ -16,7 +16,7 @@ var schema = mongoose.Schema({
 			time_needed_by : String,
 			breed : [String],
 			weightRange : String,
-      ageRange : String
+			ageRange : String
 		},
 		dogFostered : {
 			dogInfo : {
