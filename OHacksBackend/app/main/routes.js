@@ -70,7 +70,7 @@ module.exports = function(app, passport) {
 
 	});
 
-	app.post('/addUser', function(req, res){
+	app.post('/addFoster', function(req, res){
 
 	});
 
