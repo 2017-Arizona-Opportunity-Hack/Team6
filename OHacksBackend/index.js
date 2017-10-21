@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // STATIC FILES HANDLING
 app.use(express.static(__dirname + '/views'));
 
-// http setup
+// http setup	
 var http = require('http').Server(app);
 
 // PASSPORT INITIALIZATION
@@ -30,8 +30,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // MONGODB INITIALIZATION
-//var config = require('./app/database/database.js');
-//mongoose.connect(config.url);
+var config = require('./app/database/database.js');
+mongoose.connect(config.url);
 
 // EXPRESS ROUTE INITIALIZATION
 require('./app/main/routes.js')(app, passport); // configures routes in routes.js
