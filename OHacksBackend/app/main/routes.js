@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
 		});
 		dogPost.save(function(err, dogPost) {
 			if(err) return err;
-			res.json(dogPost);
+			res.json(201, dogPost);
 		});
 
 		// dog.create(req.body, function(err, post) {
