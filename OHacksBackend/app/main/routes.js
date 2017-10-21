@@ -1,13 +1,16 @@
 // -------------------------------------------------------------------------------//
 // ---------------------- HANDLES ROUTES FROM THE CLIENT ------------------------//
 // -------------------------------------------------------------------------------//
-
+<<<<<<< HEAD
+// var dog = require('/app/database/FosteredDog.js');
+// var foster = require('/app/database/Foster.js');
+=======
 var dog = require('../database/FosteredDog.js');
 var foster = require('../database/Foster.js');
-
+>>>>>>> 8bb113c2a1946640af9f8ea6bf0c6043eadbfff9
 module.exports = function(app, passport) {
 
-/************************ ROUTES FOR RENDERING PAGES ***********************/
+	/************************ ROUTES FOR RENDERING PAGES ***********************/
 
 	// home page
 	app.get('/', function(req, res){
@@ -52,7 +55,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/fosteredDogFound', function(req, res){
-        
+
 	});
 
 	app.post('/addUser', function(req, res){
@@ -64,7 +67,9 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/getDogList', function(req, res){
-
+		dog.find(function(err, dogs) {
+			res.json(dogs);
+		}).sort("-time_needed_by");
 	});
 
 	app.post('/addUserPreferences', function(req, res){
