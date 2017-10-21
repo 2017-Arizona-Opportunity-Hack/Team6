@@ -30,7 +30,7 @@ module.exports = function(passport, auth) {
 		// WAIT UNTIL DATA RETURNED:
 		process.nextTick(function() {
 			// ATTEMPT TO FIND USER IN DATABASE : profile.id
-			User.findOne({'user.google.id' : profile.id}, function(err, user){
+			User.findOne({'Admin.google.id' : profile.id}, function(err, user){
 				if (err)
 					return done(err);
 				if (user){
