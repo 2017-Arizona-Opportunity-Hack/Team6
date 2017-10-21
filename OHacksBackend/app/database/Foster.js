@@ -14,8 +14,9 @@ var schema = mongoose.Schema({
 		preferences : {
 			user_location : String,
 			time_needed_by : String,
-			type : String,
-			size : String,
+			breed : [String],
+			weightRange : String,
+      ageRange : String
 		},
 		dogFostered : {
 			dogInfo : {
