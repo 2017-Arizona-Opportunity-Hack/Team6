@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------------------//
 // ---------------------- HANDLES ROUTES FROM THE CLIENT ------------------------//
 // -------------------------------------------------------------------------------//
-
+var dog = require('app/database/FosteredDog.js');
 module.exports = function(app, passport) {
 
 	/************************ ROUTES FOR RENDERING PAGES ***********************/
@@ -42,8 +42,7 @@ module.exports = function(app, passport) {
 	/*************************** SERVER SIDE ROUTES ************************/
 
 	app.post('/addNeededDog', function(req, res){
-		var Dog = require('app/database/FosteredDog.js');
-		Dog.create(req.body, function(err, post) {
+		dog.create(req.body, function(err, post) {
 			if(err) return err;
 			res.json(post);
 		});
@@ -66,7 +65,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/addUserPreferences', function(req, res){
-		
+		var foster =
 	});
 
 	app.get('/sendNotificationToAll', function(req, res){
