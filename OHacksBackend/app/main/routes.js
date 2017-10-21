@@ -3,29 +3,29 @@
 // -------------------------------------------------------------------------------//
 
 module.exports = function(app, passport) {
-	
+
 	/************************ ROUTES FOR RENDERING PAGES ***********************/
-	
+
 	// home page
 	app.get('/', function(req, res){
 		res.send("hello");
 	});
-	
+
 	// login page; google plus auth
 	app.get('/login', function(req, res){
 		res.render('login.ejs');
 	});
-	
+
 	// signs the user out of session
 	app.get('/logout', function(req, res){
 		req.logout();
 		res.render('login.ejs');
 	});
-	
+
 	app.get('/dogadd', function(req, res){
-		
+
 	});
-	
+
 	/************************ GOOGLE PLUS AUTHENTICATION ***********************/
 
 	// profile gets us their basic information including their name
@@ -36,42 +36,46 @@ module.exports = function(app, passport) {
 	app.get('/auth/google/callback',
 			passport.authenticate('google', {
 					successRedirect : '/dashboard',
-					failureRedirect : '/login' 
+					failureRedirect : '/login'
 			}));
-	
+
 	/*************************** SERVER SIDE ROUTES ************************/
-	
+
 	app.post('/addNeededDog', function(req, res){
-		
+		var Dog = require('app/database/FosteredDog.js');
+		Dog.create(req.body, function(err, post) {
+			if(err) return err;
+			res.json(post);
+		});
 	});
-	
+
 	app.post('/fosteredDogFound', function(req, res){
-		
+
 	});
-	
+
 	app.post('/addUser', function(req, res){
-		
+
 	});
-	
+
 	app.get('/sendNotifToUser', function(req, res){
-		
+
 	});
-	
+
 	app.get('/getDogList', function(req, res){
-		
+
 	});
-	
+
 	app.post('/addUserPreferences', function(req, res){
 		
 	});
-	
+
 	app.get('/sendNotificationToAll', function(req, res){
-		
+
 	});
-	
+
 	/*************************** EXTRA ************************/
 
-	
+
 	// MIDDLEWARE TO CHECK IF USER IS ALREADY LOGGED IN
 	function isLoggedIn(req, res, next) {
 
