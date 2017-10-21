@@ -9,7 +9,7 @@ var schema = mongoose.Schema({
 		main : {
 			email : String,
 			name : String,
-			password : String,
+			is_approved: Boolean,
 		},
 		preferences : {
 			user_location : String,
