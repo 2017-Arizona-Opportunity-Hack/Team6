@@ -1,8 +1,13 @@
 // -------------------------------------------------------------------------------//
 // ---------------------- HANDLES ROUTES FROM THE CLIENT ------------------------//
 // -------------------------------------------------------------------------------//
+<<<<<<< HEAD
 // var dog = require('/app/database/FosteredDog.js');
 // var foster = require('/app/database/Foster.js');
+=======
+var dog = require('../database/FosteredDog.js');
+var foster = require('../database/Foster.js');
+>>>>>>> 8bb113c2a1946640af9f8ea6bf0c6043eadbfff9
 module.exports = function(app, passport) {
 
 	/************************ ROUTES FOR RENDERING PAGES ***********************/
