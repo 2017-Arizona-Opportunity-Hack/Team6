@@ -75,6 +75,7 @@ module.exports = function(app, passport) {
 			main: {
 				email: req.body.email,
 				name: req.body.name,
+				is_approved: false,
 			}
 		}});
 
