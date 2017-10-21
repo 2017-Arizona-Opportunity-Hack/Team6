@@ -11,7 +11,7 @@ var schema = mongoose.Schema({
 			type : String,
 			size : String,
 			owner_id : String,
-			has_owner : bool,
+			has_owner : Boolean,
 			vaccination : {
 				vaccDate : String,
 				info : String,
