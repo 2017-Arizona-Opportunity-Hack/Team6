@@ -3,11 +3,11 @@
 // -------------------------------------------------------------------------------//
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = require('../database/Admin.js');
+var Admin = require('../database/Admin.js');
 
 module.exports = function(passport, auth) {
 	// USER SERIALIZATION OR DESERIALIZATION
-	
+		
 	// IF USER SESSION EXISTS, SERIALIZE 
 	passport.serializeUser(function(user, done){
 		done(null, user.id);
@@ -16,7 +16,7 @@ module.exports = function(passport, auth) {
 	// IF USER SESSION DOES NOT EXIST, SERIALIZE FROM DATABASE
 	passport.deserializeUser(function(id, done) {
 		// FIND USER ID HERE AND RETURN USER SESSION
-		User.findById(id, function(err, user){
+		Admin.findById(id, function(err, user){
 			done(err, user);
 		});
 	});
@@ -29,16 +29,17 @@ module.exports = function(passport, auth) {
 	}, function(token, refreshToken, profile, done){
 		// WAIT UNTIL DATA RETURNED:
 		process.nextTick(function() {
+			
 			// ATTEMPT TO FIND USER IN DATABASE : profile.id
-			User.findOne({'Admin.google.id' : profile.id}, function(err, user){
+			Admin.findOne({'admin.google.id' : profile.id}, function(err, user){
 				if (err)
 					return done(err);
 				if (user){
 					// USER ALREADY EXISTS
 					return done(null, user);
-				} else {
+				} else {					
 					// CREATE NEW USER AND SAVE IN DB
-					var newUser = new User();
+					var newUser = new Admin();
 					
 					newUser.user.google.id = profile.id;
 					newUser.user.google.token = token;
@@ -48,6 +49,7 @@ module.exports = function(passport, auth) {
 					newUser.save(function(err){
 						if (err)
 							throw err;
+						
 						return done(null, newUser);
 					});
 				}

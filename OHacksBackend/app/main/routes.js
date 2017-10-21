@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.send("fuck me in the asshole");
+		res.send(req.admin);
 	});
 
 	/************************ GOOGLE PLUS AUTHENTICATION ***********************/
@@ -38,7 +38,7 @@ module.exports = function(app, passport) {
 	// the callback after google has authenticated the user
 	app.get('/auth/google/callback',
 			passport.authenticate('google', {
-					successRedirect : '/dashboard',
+					successRedirect : '/dogadd',
 					failureRedirect : '/login'
 			}));
 

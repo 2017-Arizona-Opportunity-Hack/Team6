@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 
 var schema = mongoose.Schema({
-	Admin : {
+	admin : {
 		google : {
 			id : String,
 			token : String,
