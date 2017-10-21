@@ -45,10 +45,10 @@ module.exports = function(app, passport) {
 	/*************************** SERVER SIDE ROUTES ************************/
 
 	app.post('/addNeededDog', function(req, res){
-	//	dog.create(req.body, function(err, post) {
-	//		if(err) return err;
-	//		res.json(post);
-	//	});
+		dog.create(req.body, function(err, post) {
+			if(err) return err;
+			res.json(post);
+		});
 	});
 
 	app.post('/fosteredDogFound', function(req, res){
