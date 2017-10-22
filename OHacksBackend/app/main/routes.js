@@ -160,7 +160,7 @@ module.exports = function(app, passport) {
 		}).sort({ time_needed_by : 'asc' });
 	});
 
-	app.get('/getFosterList', isLoggedInAdmin, function(req, res) {
+	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
 		foster.find(function(err, fosters) {
 			res.json(fosters);
 		});
