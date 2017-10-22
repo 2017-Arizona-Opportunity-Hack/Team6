@@ -267,12 +267,13 @@ module.exports = function(app, passport) {
 				return;
 			}
 
-			if (confirmee.Foster.is_approved) {
+			if (confirmee.Foster.main.is_approved) {
 				res.send(410);
 				return;
 			}
 
-			confirmee.Foster.is_approved = true;
+			confirmee.Foster.main.is_approved = true;
+			confirmee.save();
 			res.send(204);
 		});
 	});
