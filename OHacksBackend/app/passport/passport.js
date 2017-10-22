@@ -32,7 +32,7 @@ module.exports = function(passport, auth) {
 	// ================ ANDROID SIGNUP MODULES =============
 	
 	passport.use('android-login', new LocalStrategy(
-		function(req, username, pass, done){
+		function(username, pass, done){
 			process.nextTick(function(){
 				Foster.findOne({ 'Foster.main.email' : username }, function(err, user){					
 					if (err)
