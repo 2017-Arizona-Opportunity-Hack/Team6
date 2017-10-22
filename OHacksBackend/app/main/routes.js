@@ -217,7 +217,7 @@ module.exports = function(app, passport) {
 				res.send(500);
 				return err;
 			}
-			if(vaccinatedDog === null) {
+			if (!vaccinatedDog) {
 				res.send(404);
 				return;
 			}
