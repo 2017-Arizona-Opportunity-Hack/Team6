@@ -255,6 +255,47 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// TODO steven: add authentication middleware
+	app.get('/getApplicableDogs', function(req, res) {
+		dog.find(function(err, dogList) {
+			if (err) {
+				res.send(500);
+				return err;
+			}
+
+			var userBreedPreferences = req.user.Foster.preferences.breed;
+			var maxWeight = req.user.Foster.preferences.weight_range.max;
+			var minWeight = req.user.Foster.preferences.weight_range.min;
+			var maxAge = req.user.Foster.preferences.age_range.max;
+			var minAge = req.user.Foster.preferences.age_range.min;
+			var possibleDogs = [];
+
+			dogList.forEach(function(dog) {
+				if (userBreedPreferences.indexOf(dog.FosteredDog.breed) == -1) {
+					return;
+				}
+
+				if (maxWeight > -1 && minWeight > -1) {
+					if (dog.FosteredDog.weight > maxWeight ||
+						dog.FosteredDog.weight < minWeight) {
+						return;
+					}
+				}
+
+				if (maxAge > -1 && minAge > -1) {
+					if (dog.FosteredDog.age > maxAge ||
+						dog.fosteredDog.age < minAge) {
+						return;
+					}
+				}
+
+				possibleDogs.push(dog);
+			});
+
+			req.json(200, possibleDogs);
+		});
+	});
+
 	//	Pass the JSON in with the following field:
 	//	{
 	//		dogId: String
