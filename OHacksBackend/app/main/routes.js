@@ -15,26 +15,26 @@ module.exports = function(app, passport) {
 	});
 
 	// HANDLES USER LOGIN
-	
+
 	app.get('/login', function(req, res){
 		res.render('login.ejs', {message : req.flash('loginMessage')});
 	});
-	
+
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/dogadd', 
+		successRedirect : '/dogadd',
 		failureRedirect : '/login',
 		failureFlash : true,
 	}));
-	
+
 	// HANDLES USER SIGNUP
-	
+
 	app.get('/signup', function(req, res){
 		res.render('signup.ejs', {message : req.flash('signupMessage')});
 	});
-	
+
 	app.post('/signup', function(req, res, next) {
 		passport.authenticate('local-login', {
-			successRedirect : '/dogadd', 
+			successRedirect : '/dogadd',
 			failureRedirect : '/signup',
 			failureFlash : true,
 		});
@@ -120,7 +120,7 @@ module.exports = function(app, passport) {
 
 	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
 	app.post('/updateFosterPreferences', function(req, res){
-		foster.findOne({ Foster: { main: { email: req.body.email } } }, function(err, currFoster) {
+		foster.findOne("Foster.Foster.main.email" : req.body.email, function(err, currFoster) {
 			if(err) {
 				res.send(404);
 				return err;
