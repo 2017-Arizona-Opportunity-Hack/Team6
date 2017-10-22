@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Opportunity Hacks</string>
+    <string name="preferences">sign_in_preferences</string>
+    <string name="login_username">login_username</string>
+    <string name="login_password">login_password</string>
+    <string name="login_cookie">login_cookie</string>
+</resources>

@@ -25,8 +25,8 @@ module.exports = function(app, passport) {
 	});
 
 	// for testing if user is logged in
-	app.get('/test_confirmed', isLoggedIn, function(req, res){
-		res.send("f u");
+	app.post('/test_confirmed', isLoggedInNoRedirect, function(req, res){
+		res.send("a;lksdjfalskdjf");
 	});
 
 	// HANDLES USER LOGIN
