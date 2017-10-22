@@ -344,7 +344,7 @@ module.exports = function(app, passport) {
 	
 	function isLoggedInNoRedirect(req, res, next) {
 		// if user is authenticated in the session, carry on
-		if (req.isAuthenticated() && req.user.Foster.main.is_approved)
+		if (req.isAuthenticated())
 			return next();
 	}
 };
