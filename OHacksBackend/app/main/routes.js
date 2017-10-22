@@ -180,31 +180,22 @@ module.exports = function(app, passport) {
 	// age_range: { min: Number, max: Number }       (-1 for both if no preference)
 	// }
 	app.post('/updateFosterPreferences', function(req, res){
-		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
-			if(currFoster === null) {
-				res.send(404);
-				return;
-			}
-			if(err) {
-				return err;
-			}
-			currFoster.Foster.preferences.user_location = req.body.user_location;
-			currFoster.Foster.preferences.time_needed_by = req.body.time_needed_by;
-			currFoster.Foster.preferences.breed = req.body.breed;
-			currFoster.Foster.preferences.weight_range = {
+			req.user.Foster.preferences.user_location = req.body.user_location;
+			req.user.Foster.preferences.time_needed_by = req.body.time_needed_by;
+			req.user.Foster.preferences.breed = req.body.breed;
+			req.user.Foster.preferences.weight_range = {
 				min: req.body.weight_range.min,
 				max: req.body.weight_range.max
 			};
-			currFoster.Foster.preferences.age_range = {
+			req.user.Foster.preferences.age_range = {
 				min: req.body.age_range.min,
 				max: req.body.age_range.max
 			};
 
-			currFoster.save(function(err, json) {
+			req.user.save(function(err, json) {
 				if(err) return err;
 				res.json(204, json);
 			});
-		});
 	});
 
 	// Pass the JSON in with the following fields:
