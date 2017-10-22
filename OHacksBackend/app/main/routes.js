@@ -234,6 +234,16 @@ module.exports = function(app, passport) {
 
 	});
 
+	//	Pass the JSON in with the following field:
+	//	{
+	//		dogId: String
+	//	}
+	app.delete('/removeDog', function(req, res) {
+		dog.findByIdAndRemove(req.body.dogId, function(err) {
+			if(err) return err;
+			res.send(204);
+		});
+	});
 	/*************************** EXTRA ************************/
 
 
