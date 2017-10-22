@@ -7,12 +7,12 @@ var mongoose = require('mongoose');
 var schema = mongoose.Schema({
         FosteredDog : {
       dogName : String,
-			time_needed_by : Date,
+			time_needed_by : Number,
 			location : String,
 			breed : String,
 			size : String,
 			owner_id : String,
-			vacc_date : Date,
+			vacc_date : Number,
 			vacc_info : String
         }});
 
