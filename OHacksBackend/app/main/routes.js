@@ -208,7 +208,7 @@ module.exports = function(app, passport) {
 			vaccinatedDog.save(function(err, json) {
 				if(err) return err;
 				res.send(204);
-			})
+			});
 		});
 	});
 
