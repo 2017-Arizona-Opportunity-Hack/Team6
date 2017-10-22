@@ -10,7 +10,7 @@ var schema = mongoose.Schema({
 			time_needed_by : Number,
 			location : String,
 			breed : String,
-			size : String,
+			weight : Number,
 			owner_id : String,
 			vacc_date : Number,
 			vacc_info : String

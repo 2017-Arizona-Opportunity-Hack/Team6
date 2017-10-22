@@ -52,15 +52,20 @@ module.exports = function(app, passport) {
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
-	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size.
-	//		All fields are strings.
+	//	Pass the JSON with the following fields:
+	//	{
+	//		dogName: String
+	//		location: String
+	//		breed: String
+	//		weight: Number
+	//	}
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
 			dogName : req.body.dogName,
 			time_needed_by: (Date.now()/1000)|0,
 			location : req.body.location,
 			breed : req.body.breed,
-			size : req.body.size,
+		 	weight: req.body.weight,
 			owner_id: null,
 			vacc_date : "",
 			vacc_info : ""
@@ -73,6 +78,11 @@ module.exports = function(app, passport) {
 
 	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster).
 	//		All fields are strings.
+	//	Pass the JSON with the following fields:
+	//	{
+	//		dogId: String
+	//		ownerId: String
+	//	}
 	app.post('/dogFostered', function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
 			if(err) {
@@ -115,7 +125,11 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// JSON format: email (user's email), and name (user's name). All fields are strings
+	//	Pass the JSON in with the following fields:
+	// {
+	//		email: String
+	//		name: String
+	// }
 	app.post('/addFoster', function(req, res){
 		var fost = new foster({ Foster: {
 			main: {
@@ -191,8 +205,12 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// JSON format: dogId (to identify what dog needs its vaccination shit updated), vacc_date (date of vaccination),
-	//		and vacc_info (information about vaccination). All fields are strings
+	// Pass the JSON in with the following fields:
+	//{
+	//	dogId: String
+	//	vacc_date: Number
+	//	vacc_info: String
+	//}
 	app.post('/updateVaccination', function(req, res) {
 		dog.findById(req.body.dogId, function(err, vaccinatedDog) {
 			if(err) {
