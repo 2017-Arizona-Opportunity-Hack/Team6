@@ -22,12 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FosterInfo"
+        <activity
+            android:name=".FosterInfo"
             android:label="Foothills">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ParentActivity" />
         </activity>
+        <activity android:name=".Preferences"></activity>
     </application>
 
 </manifest>
