@@ -31,11 +31,12 @@ module.exports = function(passport, auth) {
 		
 	// ================ ANDROID SIGNUP MODULES =============
 	
-	passport.use('android-login', new LocalStrategy({
+	passport.use('android-login', new LocalStrategy(
+		/**{
 			usernameField : 'login',
 			passwordField : 'password',
 			passReqToCallback: true
-		},
+		},**/
 		function(req, username, pass, done){
 			process.nextTick(function(){
 				Foster.findOne({ 'Foster.main.email' : username }, function(err, user){					
@@ -53,9 +54,8 @@ module.exports = function(passport, auth) {
 			});
 	}));
 	
-	passport.use('android-signup', new LocalStrategy({
-		usernameField : 'login',
-		passwordField : 'password',
+	passport.use('android-signup', new LocalStrategy(
+	{
 		passReqToCallback: true
 	},
 	function(req, username, pass, done){		
@@ -94,7 +94,7 @@ module.exports = function(passport, auth) {
 						
 						fost.Foster = data;
 
-						fost.save(function(err, json) {
+						fost.save(function(err, json) {							
 							if (err)
 								throw err;
 							return done(null, fost);
