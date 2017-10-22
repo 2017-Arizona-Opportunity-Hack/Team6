@@ -78,7 +78,6 @@ module.exports = function(app, passport) {
 				return err;
 			}
 
-			console.log(adoptedDog);
 			if (adoptedDog === null) {
 				res.send(404);
 				return;
