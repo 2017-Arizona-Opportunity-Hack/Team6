@@ -160,8 +160,8 @@ module.exports = function(app, passport) {
 	// user_location: String
 	// time_needed_by: String
 	// breed: String
-	// weight_range: { min: Number, max: Number }
-	// age_range: { min: Number, max: Number }
+	// weight_range: { min: Number, max: Number }    (-1 for both if no preference)
+	// age_range: { min: Number, max: Number }       (-1 for both if no preference)
 	// }
 	app.post('/updateFosterPreferences', function(req, res){
 		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
