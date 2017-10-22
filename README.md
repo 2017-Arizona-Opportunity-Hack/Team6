@@ -12,6 +12,22 @@ We decided to go for a native app solution for a few important reasons
 ## Our Implementation
 Throughout every step of the way we focused on reliability, scalability, and deployability to create a strong foundation that can easily be built upon and expanded in the future
 
+### Backend 
+For the backend we used Express.js, Node.js and MongoDB
+The Backend handles the authentication of users and processes all the application requests through a server made in Node.
+
+### Frontend
+For the frontend we split it into two parts. The fosters or "users" interact with an Android application, The administrators use a web-based backend that was made using HTML, CSS and JavaScript.
+
+The Android application front end follows Google's Material design specifications and maintains a simple aesthetic that is quick and easy to navigate throuh regardless of age.
+#### Authentication 
+![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/Login.jpeg "Login")
+#### Home Screen
+![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/Home.jpeg "home")
+#### Animal Profile
+![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/profile.jpeg "profile")
+#### Foster Application
+![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/Foster%20form.jpeg "application")
 
 ## Current Status
 
