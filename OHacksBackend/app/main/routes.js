@@ -107,7 +107,7 @@ module.exports = function(app, passport) {
 			preferences : {
 				user_location : "",
 				time_needed_by : "",
-				breed : [String],
+				breed : [""],
 				weightRange : "",
 				ageRange : ""
 			},
