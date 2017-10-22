@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html>
 	<style>
-	h2{
-		text-align: center;
+	#header {
+	  	height: 100px;
+	  	background-color: #B71C1C;
+	  	text-align: center;
+	  	padding-top: 20px;
 	}
-	
+
+	body {
+		margin: 0;
+	}
+
+	#header img {
+	  	height: 80px;
+	}
+
+	body {
+		margin: 0;
+	}
+
+	a:link {
+
+	}
+	a:visited {
+		color: #B71C1C;
+	}
+
 	input[type=text], input[type=password] {
 		width: 100%;
 		padding: 12px 20px;
@@ -14,7 +36,7 @@
 		box-sizing: border-box;
 	}
 	button {
-		background-color: #4CAF50;
+		background-color: #B71C1C;
 		color: white;
 		padding: 14px 20px;
 		margin: 8px 0;
@@ -32,8 +54,8 @@
 	</style>
 	<body>
 
-	<h2>Steven's Sign Up Page</h2>
-	
+	<div id="header"><img src="/images/logo-web.png"></img></div>
+
 	<form action="/signup" method = "POST">
 	  <div class="container">
 		<label><b>Username</b></label>
@@ -41,8 +63,9 @@
 
 		<label><b>Password</b></label>
 		<input type="password" placeholder="Enter Password" name="password" required>
-			
-		<button type="submit">Login</button>
+
+		<button type="submit">Sign Up</button>
+		<a href="/login"><b>Back to Log In</b></a>
 	  </div>
 	</form>
 

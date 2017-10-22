@@ -19,16 +19,16 @@ module.exports = function(app, passport) {
 	app.post('/android_signup', passport.authenticate('android-signup'), function(req, res){
 		res.send(204);
 	});
-	
+
 	app.post('/android_login', passport.authenticate('android-login'), function(req, res){
 		res.send(204);
 	});
-	
+
 	// for testing if user is logged in
 	app.post('/test_confirmed', isLoggedInNoRedirect, function(req, res){
 		res.send(204);
 	});
-	
+
 	// HANDLES USER LOGIN
 
 	app.get('/login', function(req, res){
@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
 		res.render('signup.ejs', {message : req.flash('signupMessage')});
 	});
 
-	app.post('/signup', 	
+	app.post('/signup',
 		passport.authenticate('local-signup', {
 			successRedirect : '/dogadd',
 			failureRedirect : '/signup',
@@ -62,7 +62,7 @@ module.exports = function(app, passport) {
 
 	app.get('/admin', isLoggedInAuth, function(req, res){
 		res.render('admin.ejs', {user: req.user});
-	});	
+	});
 
 
 	/*************************** SERVER SIDE ROUTES ************************/
@@ -71,6 +71,7 @@ module.exports = function(app, passport) {
 	//	{
 	//		dogName: String
 	//		location: String
+	//		time_needed_by: Number
 	//		species: String
 	//		breed: String
 	//		weight: Number
@@ -78,7 +79,7 @@ module.exports = function(app, passport) {
 	app.post('/addNeededDog', isLoggedInAuth, function(req, res){
 		var dogPost = new dog({ FosteredDog: {
 			dogName : req.body.dogName,
-			time_needed_by: (Date.now()/1000)|0,
+			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
 			species: req.body.species,
 			breed : req.body.breed,
@@ -353,8 +354,8 @@ module.exports = function(app, passport) {
 		// if they aren't redirect them to the home page
 		res.redirect('/login');
 	}
-	
-	function isLoggedIn(req, res, next) {		
+
+	function isLoggedIn(req, res, next) {
 		// if user is authenticated in the session, carry on
 		if (req.isAuthenticated() && req.user.Foster.main.is_approved)
 			return next();
@@ -362,7 +363,7 @@ module.exports = function(app, passport) {
 		// if they aren't redirect them to the home page
 		res.redirect('/login');
 	}
-	
+
 	function isLoggedInNoRedirect(req, res, next) {
 		// if user is authenticated in the session, carry on
 		if (req.isAuthenticated())
