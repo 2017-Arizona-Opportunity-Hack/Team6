@@ -28,6 +28,8 @@ The Android application front end follows Google's Material design specification
 ![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/profile.jpeg "profile")
 #### Foster Application
 ![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/Foster%20form.jpeg "application")
+#### Push Notifications
+![alt text](https://github.com/2017-Arizona-Opportunity-Hack/Team6/blob/master/assets/Push%20notification.jpeg "push")
 
 ## Current Status
 
