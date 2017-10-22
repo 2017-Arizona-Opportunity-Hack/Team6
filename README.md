@@ -1,3 +1,5 @@
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
 ## The Problem
 Currently, 1.5 million dogs and cats are euthanized each and every year. Foothills Animal Rescue of Scottsdale, Arizona strives to save as many animals each year by placing them in foster care and providing them with new homes. Animal control and shelters impose deadlines for their animals, stating that if a certain animal is not removed from their custody by within a certain time frame that animal will be euthanized. 
 
