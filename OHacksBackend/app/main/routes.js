@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
 		var dogPost = new dog({ FosteredDog: {
 			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
-			breed : req.body.type,
+			breed : req.body.breed,
 			size : req.body.size,
 			has_owner : false
 		}});
