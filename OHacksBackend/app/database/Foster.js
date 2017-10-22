@@ -10,6 +10,7 @@ var schema = mongoose.Schema({
 			email : String,
 			name : String,
 			is_approved: Boolean,
+      is_admin: Boolean
 		},
 		preferences : {
 			user_location : String,

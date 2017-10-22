@@ -136,6 +136,7 @@ module.exports = function(app, passport) {
 				email: req.body.email,
 				name: req.body.name,
 				is_approved: false,
+				is_admin: false
 			},
 			preferences : {
 				user_location : "",
@@ -169,6 +170,11 @@ module.exports = function(app, passport) {
 		}).sort({ time_needed_by : 'asc' });
 	});
 
+	app.get('/getFosterList', function(req, res) {
+		foster.find(function(err, fosters) {
+			res.json(fosters);
+		});
+	});
 	// Pass the json in with the following fields:
 	// {
 	// user_location: String
@@ -263,6 +269,17 @@ module.exports = function(app, passport) {
 	//	}
 	app.delete('/removeDog', function(req, res) {
 		dog.findByIdAndRemove(req.body.dogId, function(err) {
+			if(err) return err;
+			res.send(204);
+		});
+	});
+
+	//	Pass the JSON in with the following field:
+	//	{
+	//		fosterId: String
+	//	}
+	app.delete('/removeFoster', function(req, res) {
+		foster.findByIdAndRemove(req.body.fosterId, function(err) {
 			if(err) return err;
 			res.send(204);
 		});
