@@ -49,7 +49,7 @@ module.exports = function(app, passport) {
 
 	app.post('/signup',
 		passport.authenticate('local-signup', {
-			successRedirect : '/dogadd',
+			successRedirect : '/login',
 			failureRedirect : '/signup',
 			failureFlash : true,
 		}));
@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
-			res.json(201, json);
+			res.redirect("/admin")
 		});
 	});
 
@@ -186,7 +186,13 @@ module.exports = function(app, passport) {
 
 			var deadline = new Date();
 			deadline.setSeconds(fd.FosteredDog.time_needed_by);
-			var dlString = dateFormat(deadline, "ddd mmmm dd, yy hh:MM");
+			var dlString;
+
+			try {
+				dlString = dateFormat(deadline, "ddd mmmm dd, yy hh:MM");
+			} catch(err) {
+				dlString = err.message;
+			}
 
 			res.render("dog.ejs", { dog: fd, deadline: dlString });
 		});
@@ -194,6 +200,9 @@ module.exports = function(app, passport) {
 
 	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
 		foster.find(function(err, fosters) {
+			fosters.forEach(function(f) {
+				f.Foster.main.password = "";
+			});
 			res.json(fosters);
 		});
 	});
@@ -259,17 +268,20 @@ module.exports = function(app, passport) {
 				return err;
 			}
 
+			console.log(confirmee);
+
 			if (!confirmee) {
 				res.send(404);
 				return;
 			}
 
-			if (confirmee.Foster.is_approved) {
+			if (confirmee.Foster.main.is_approved) {
 				res.send(410);
 				return;
 			}
 
-			confirmee.Foster.is_approved = true;
+			confirmee.Foster.main.is_approved = true;
+			confirmee.save();
 			res.send(204);
 		});
 	});
