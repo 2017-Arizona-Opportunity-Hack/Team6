@@ -186,7 +186,13 @@ module.exports = function(app, passport) {
 
 			var deadline = new Date();
 			deadline.setSeconds(fd.FosteredDog.time_needed_by);
-			var dlString = dateFormat(deadline, "ddd mmmm dd, yy hh:MM");
+			var dlString;
+
+			try {
+				dlString = dateFormat(deadline, "ddd mmmm dd, yy hh:MM");
+			} catch(err) {
+				dlString = err.message;
+			}
 
 			res.render("dog.ejs", { dog: fd, deadline: dlString });
 		});
