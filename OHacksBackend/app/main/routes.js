@@ -124,8 +124,8 @@ module.exports = function(app, passport) {
 				user_location : "",
 				time_needed_by : "",
 				breed : [""],
-				weightRange : "",
-				ageRange : ""
+				weightRange : { min: -1, max: -1 },
+				ageRange : { min: -1, max: -1 }
 			},
 			dogFostered : {
 				dogInfo : {
@@ -152,7 +152,14 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
-	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
+	// Pass the json in with the following fields:
+	// {
+	// user_location: String
+	// time_needed_by: String
+	// breed: String
+	// weight_range: { min: Number, max: Number }
+	// age_range: { min: Number, max: Number }
+	// }
 	app.post('/updateFosterPreferences', function(req, res){
 		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
 			if(currFoster === null) {
@@ -165,8 +172,15 @@ module.exports = function(app, passport) {
 			currFoster.Foster.preferences.user_location = req.body.user_location;
 			currFoster.Foster.preferences.time_needed_by = req.body.time_needed_by;
 			currFoster.Foster.preferences.breed = req.body.breed;
-			currFoster.Foster.preferences.weightRange = req.body.weightRange;
-			currFoster.Foster.preferences.ageRange = req.body.ageRange;
+			currFoster.Foster.preferences.weight_range = {
+				min: req.body.weight_range.min,
+				max: req.body.weight_range.max
+			};
+			currFoster.Foster.preferences.age_range = {
+				min: req.body.age_range.min,
+				max: req.body.age_range.max
+			};
+
 			currFoster.save(function(err, json) {
 				if(err) return err;
 				res.json(204, json);
