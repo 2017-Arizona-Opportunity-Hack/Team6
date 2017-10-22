@@ -25,8 +25,8 @@ module.exports = function(app, passport) {
 	});
 
 	// for testing if user is logged in
-	app.post('/test_confirmed', function(req, res){
-		res.send(204);
+	app.get('/test_confirmed', isLoggedIn, function(req, res){
+		res.send("f u");
 	});
 
 	// HANDLES USER LOGIN
