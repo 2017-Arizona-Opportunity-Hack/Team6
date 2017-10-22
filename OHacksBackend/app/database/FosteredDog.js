@@ -12,7 +12,7 @@ var schema = mongoose.Schema({
 			breed : String,
 			size : String,
 			owner_id : String,
-			vacc_date : String,
+			vacc_date : Date,
 			vacc_info : String
         }});
 

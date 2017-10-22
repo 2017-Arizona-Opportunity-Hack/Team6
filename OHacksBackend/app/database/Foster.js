@@ -21,8 +21,8 @@ var schema = mongoose.Schema({
 		dogFostered : {
 			dogInfo : {
 				id: String,
-				time_adopted : String,
-				time_until : String,
+				time_adopted : Date,
+				time_until : Date,
 			}
 		},
 	}});
