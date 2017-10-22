@@ -14,6 +14,7 @@ var schema = mongoose.Schema({
 			is_approved: Boolean,
 			is_admin: Boolean
 		},
+		seenDogs: [String], // ids of dogs seen by getApplicableDogs
 		preferences : {
 			user_location : String,
 			time_needed_by : String,
