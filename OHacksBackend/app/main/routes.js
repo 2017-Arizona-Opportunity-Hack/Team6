@@ -88,7 +88,7 @@ module.exports = function(app, passport) {
 			vacc_date : "",
 			vacc_info : ""
 		}});
-		console.log(req.body);
+
 		dogPost.save(function(err, json) {
 			if(err) return err;
 			res.redirect("/admin");
