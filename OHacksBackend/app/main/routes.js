@@ -60,7 +60,10 @@ module.exports = function(app, passport) {
 			location : req.body.location,
 			breed : req.body.breed,
 			size : req.body.size,
-			has_owner : false
+			has_owner : false,
+			owner_id : "",
+			vacc_date : "",
+			vacc_info : ""
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
@@ -100,6 +103,20 @@ module.exports = function(app, passport) {
 				email: req.body.email,
 				name: req.body.name,
 				is_approved: false,
+			}
+			preferences : {
+				user_location : "",
+				time_needed_by : "",
+				breed : [String],
+				weightRange : "",
+				ageRange : ""
+			},
+			dogFostered : {
+				dogInfo : {
+					id: "",
+					time_adopted : "",
+					time_until : "",
+				}
 			}
 		}});
 
