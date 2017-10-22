@@ -126,14 +126,14 @@ public class HttpRequest {
                     JSONObject dogs = new JSONObject(test.getString("FosteredDog"));
                     String[] dogInfo = new String[8];
                     for(int i = 0; i < dogs.names().length(); i++){
-                        dogInfo[0] = dogs.getString("dogName");
-                        dogInfo[1] = dogs.getString("time_needed_by");
-                        dogInfo[2] = dogs.getString("location");
-                        dogInfo[3] = dogs.getString("species");
-                        dogInfo[4] = dogs.getString("breed");
-                        dogInfo[5] = dogs.getString("weight");
-                        dogInfo[6] = dogs.getString("vacc_date");
-                        dogInfo[7] = dogs.getString("vacc_info");
+                        dogInfo[0] = dogs.optString("dogName", "");
+                        dogInfo[1] = dogs.optString("time_needed_by", "");
+                        dogInfo[2] = dogs.optString("location", "");
+                        dogInfo[3] = dogs.optString("species", "");
+                        dogInfo[4] = dogs.optString("breed", "");
+                        dogInfo[5] = dogs.optString("weight", "");
+                        dogInfo[6] = dogs.optString("vacc_date", "");
+                        dogInfo[7] = dogs.optString("vacc_info", "");
                     }
                     dogList.add(dogInfo);
                 }
