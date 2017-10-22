@@ -45,7 +45,7 @@
 		<h2>Sign Up</h2>
 
 		<hr>
-			<form class="form-horizontal" action=" " method="" id="contact_form">
+			<form class="form-horizontal" action="/signup" method="POST" id="contact_form">
 			<fieldset>
 				<!-- Form Name -->
 
@@ -57,7 +57,7 @@
 					<div class="col-md-12">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-							<input name="first_name" placeholder="Username" class="form-control" type="text">
+							<input name="login" placeholder="Username" class="form-control" type="text" required>
 					      	</div>
 					</div>
 				</div>
@@ -70,7 +70,7 @@
 			   		<div class="col-md-12">
 			       			<div class="input-group">
 				   			<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-							<input name="email" placeholder="Password" class="form-control" type="text">
+							<input name="password" placeholder="Password" class="form-control" type="password" required>
 					       </div>
 			 		</div>
 				</div>
