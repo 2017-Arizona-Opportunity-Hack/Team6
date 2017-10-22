@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.geoffrey.foothillsanimalrescueapp.MainActivity">
+    tools:context="com.example.geoffrey.foothillsanimalrescueapp.SignUp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/foothills_logo"
@@ -22,92 +21,80 @@
         android:id="@+id/bottom_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/signUp"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="39dp"
+        android:text="Create User Account Details"
+        android:textSize="15dp"
+        android:textColor="#606060"
+        android:layout_below="@+id/signUp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/userSignupText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
         android:text="Username"
         android:textSize="20dp"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_below="@+id/textView13"
+        android:layout_alignStart="@+id/signUp" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/usernameSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/ic_action_user"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="#606060"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_below="@+id/userSignupText"
+        android:layout_alignStart="@+id/userSignupText" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/passSignupText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Password"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:layout_below="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_below="@+id/usernameSignup"
+        android:layout_alignEnd="@+id/userSignupText" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_below="@+id/textView12"
-        android:layout_marginTop="11dp"
         android:textColor="#606060"
         android:drawableRight="@drawable/ic_action_pass"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_below="@+id/passSignupText"
+        android:layout_alignEnd="@+id/signUp" />
 
     <Button
-        android:id="@+id/submitButton"
+        android:id="@+id/signupbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Sign Up"
         android:onClick="sendMessage"
         android:background="@color/colorAccent"
         android:width="200dp"
         android:height="50dp"
         android:textColor="#ffffff"
         android:textSize="20dp"
-        android:layout_above="@+id/joinUs"
-        android:layout_alignEnd="@+id/imageView"
-        android:layout_marginBottom="11dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Not a registered foster?"
-        android:textColor="#606060"
-        android:layout_alignBaseline="@+id/joinUs"
-        android:layout_alignBottom="@+id/joinUs"
-        android:layout_alignStart="@+id/password" />
-
-    <Button
-        android:id="@+id/joinUs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:textColor="#606060"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/textView2"
-        android:text="Join Us" />
-
+        android:layout_below="@+id/passwordSignup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp" />
 </RelativeLayout>
