@@ -67,10 +67,6 @@ module.exports = function(app, passport) {
 		});
 	});
 
-<<<<<<< HEAD
-	app.post('/fosteredDogAdopted', function(req, res){
-
-=======
 	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster)
 	app.post('/dogFostered', function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
@@ -95,7 +91,6 @@ module.exports = function(app, passport) {
 				});
 			});
 		});
->>>>>>> 6af981a016fdb503e8355dc5b50ca5fee28100de
 	});
 
 	app.post('/addFoster', function(req, res){
