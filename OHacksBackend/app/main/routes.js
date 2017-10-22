@@ -160,10 +160,6 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.get('/sendNotifToUser', function(req, res){
-
-	});
-
 	app.get('/getDogList', function(req, res){
 		dog.find(function(err, dogs) {
 			res.json(dogs);
@@ -248,10 +244,6 @@ module.exports = function(app, passport) {
 			confirmee.Foster.is_approved = true;
 			res.send(204);
 		});
-	});
-
-	app.get('/sendNotificationToAll', function(req, res){
-
 	});
 
 	//	Pass the JSON in with the following field:
