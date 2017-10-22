@@ -4,4 +4,4 @@ module.exports = {
 		'clientSecret' : '3EcEr4ppL1HNHEiiChoPHEG_',
 		'callbackURL' : 'http://localhost:8080/dogadd',
 	}
-} 
+};
