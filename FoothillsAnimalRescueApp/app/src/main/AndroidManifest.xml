@@ -35,6 +35,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ParentActivity" />
         </activity>
+        <activity android:name=".SignUp"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <item android:name="android:statusBarColor">
+                @color/colorPrimaryDark
+            </item>
+        </activity>
     </application>
 
 </manifest>
