@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 
 var schema = mongoose.Schema({
         FosteredDog : {
+      dogName : String,
 			time_needed_by : String,
 			location : String,
 			breed : String,

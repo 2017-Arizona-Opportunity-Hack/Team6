@@ -55,6 +55,7 @@ module.exports = function(app, passport) {
 	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
+			dogName : req.body.dogName,
 			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
 			breed : req.body.breed,
