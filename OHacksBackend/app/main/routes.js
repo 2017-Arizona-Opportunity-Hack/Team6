@@ -61,7 +61,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.post('/fosteredDogFound', function(req, res){
+	app.post('/fosteredDogAdopted', function(req, res){
 
 	});
 
