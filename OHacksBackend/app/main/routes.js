@@ -61,6 +61,8 @@ module.exports = function(app, passport) {
 			breed : req.body.breed,
 			size : req.body.size,
 			owner_id: null,
+			vacc_date : "",
+			vacc_info : ""
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
@@ -100,6 +102,20 @@ module.exports = function(app, passport) {
 				email: req.body.email,
 				name: req.body.name,
 				is_approved: false,
+			},
+			preferences : {
+				user_location : "",
+				time_needed_by : "",
+				breed : [""],
+				weightRange : "",
+				ageRange : ""
+			},
+			dogFostered : {
+				dogInfo : {
+					id: "",
+					time_adopted : "",
+					time_until : "",
+				}
 			}
 		}});
 
@@ -122,7 +138,7 @@ module.exports = function(app, passport) {
 	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
 	app.post('/updateFosterPreferences', function(req, res){
 		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
-			if(currFoster == null) {
+			if(currFoster === null) {
 				res.send(404);
 				return;
 			}
