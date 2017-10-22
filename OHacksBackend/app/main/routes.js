@@ -74,23 +74,41 @@ module.exports = function(app, passport) {
 	app.post('/dogFostered', function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
 			if(err) {
-				res.send(404);
+				res.send(500);
 				return err;
 			}
+
+			console.log(adoptedDog);
+			if (adoptedDog === null) {
+				res.send(404);
+				return;
+			}
+
+			if (adoptedDog.FosteredDog.owner_id) {
+				res.send(410);
+				return;
+			}
+
 			foster.findById(req.body.ownerId, function(err, newFoster) {
 				if(err) {
-					res.send(404);
+					res.send(500);
 					return err;
 				}
-				adoptedDog.owner_id = req.body.ownerId;
-				newFoster.dogFostered.id = req.body.dogId;
+
+				if (newFoster === null) {
+					res.send(404);
+					return;
+				}
+
+				adoptedDog.FosteredDog.owner_id = req.body.ownerId;
+				newFoster.Foster.dogFostered.id = req.body.dogId;
 				adoptedDog.save(function(err, json) {
 					if(err) return err;
-					res.json(204);
+					res.send(204);
 				});
 				newFoster.save(function(err, json) {
 					if(err) return err;
-					res.json(204);
+					res.send(204);
 				});
 			});
 		});
