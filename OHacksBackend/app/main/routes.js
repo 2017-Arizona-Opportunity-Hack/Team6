@@ -52,16 +52,14 @@ module.exports = function(app, passport) {
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
+	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
 			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
 			breed : req.body.type,
 			size : req.body.size,
-			owner_id : req.body.owner_id,
-			has_owner : req.body.has_owner,
-			vacc_date : req.body.vacc_date,
-			vacc_info : req.body.vacc_info
+			has_owner : false
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
@@ -69,8 +67,35 @@ module.exports = function(app, passport) {
 		});
 	});
 
+<<<<<<< HEAD
 	app.post('/fosteredDogAdopted', function(req, res){
 
+=======
+	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster)
+	app.post('/dogFostered', function(req, res){
+		dog.findById(req.body.dogId, function(err, adoptedDog) {
+			if(err) {
+				res.send(404);
+				return err;
+			}
+			foster.findById(req.body.ownerId, function(err, newFoster) {
+				if(err) {
+					res.send(404);
+					return err;
+				}
+				adoptedDog.owner_id = req.body.ownerId;
+				newFoster.dogFostered.id = req.body.dogId;
+				adoptedDog.save(function(err, json) {
+					if(err) return err;
+					res.json(204);
+				});
+				newFoster.save(function(err, json) {
+					if(err) return err;
+					res.json(204);
+				});
+			});
+		});
+>>>>>>> 6af981a016fdb503e8355dc5b50ca5fee28100de
 	});
 
 	app.post('/addFoster', function(req, res){
@@ -98,6 +123,7 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
+	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
 	app.post('/updateFosterPreferences', function(req, res){
 		foster.findOne(req.body.email, function(err, currFoster) {
 			if(err) {
