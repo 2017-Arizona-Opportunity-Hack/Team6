@@ -32,11 +32,6 @@ module.exports = function(passport, auth) {
 	// ================ ANDROID SIGNUP MODULES =============
 	
 	passport.use('android-login', new LocalStrategy(
-		/**{
-			usernameField : 'login',
-			passwordField : 'password',
-			passReqToCallback: true
-		},**/
 		function(req, username, pass, done){
 			process.nextTick(function(){
 				Foster.findOne({ 'Foster.main.email' : username }, function(err, user){					
@@ -44,17 +39,17 @@ module.exports = function(passport, auth) {
 						return done(err);
 					
 					if (!user)
-						return done(null, false, req.flash('loginMessage', "No User Found"));
+						return done(null, false);
 					
 					if (!user.validPassword(pass))
-						return done(null, false, req.flash('loginMessage', "Wrong Password"));
+						return done(null, false);
 					
 					return done(null, user);
 				});
 			});
 	}));
 	
-	passport.use('android-signup', new LocalStrategy({
+	passport.use('android-signup', new LocalStrategy(
 	function(username, pass, done){		
 		Foster.findOne({ 'Foster.main.email' : username }, function(err, user){					
 					if (err){
