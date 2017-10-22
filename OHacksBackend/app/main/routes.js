@@ -103,7 +103,7 @@ module.exports = function(app, passport) {
 				email: req.body.email,
 				name: req.body.name,
 				is_approved: false,
-			}
+			},
 			preferences : {
 				user_location : "",
 				time_needed_by : "",
