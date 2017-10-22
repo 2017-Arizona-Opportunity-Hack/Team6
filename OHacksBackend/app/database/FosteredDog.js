@@ -12,7 +12,6 @@ var schema = mongoose.Schema({
 			breed : String,
 			size : String,
 			owner_id : String,
-			has_owner : Boolean,
 			vacc_date : String,
 			vacc_info : String
         }});
