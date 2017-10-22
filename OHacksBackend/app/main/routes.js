@@ -52,6 +52,7 @@ module.exports = function(app, passport) {
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
+	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
 			dogName : req.body.dogName,
@@ -59,10 +60,7 @@ module.exports = function(app, passport) {
 			location : req.body.location,
 			breed : req.body.type,
 			size : req.body.size,
-			owner_id : req.body.owner_id,
-			has_owner : req.body.has_owner,
-			vacc_date : req.body.vacc_date,
-			vacc_info : req.body.vacc_info
+			has_owner : false
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
@@ -70,7 +68,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// req passed in should have dogId for the id of the dog and should have ownerId for the id of the owner
+	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster)
 	app.post('/dogFostered', function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
 			if(err) {
@@ -121,6 +119,7 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
+	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
 	app.post('/updateFosterPreferences', function(req, res){
 		foster.findOne(req.body.email, function(err, currFoster) {
 			if(err) {
