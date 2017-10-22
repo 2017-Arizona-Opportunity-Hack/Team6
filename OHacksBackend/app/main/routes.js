@@ -11,12 +11,33 @@ module.exports = function(app, passport) {
 
 	// home page
 	app.get('/', function(req, res){
-		res.send("hello");
+		res.render("login.ejs");
 	});
 
-	// login page; google plus auth
+	// HANDLES USER LOGIN
+	
 	app.get('/login', function(req, res){
-		res.render('login.ejs');
+		res.render('login.ejs', {message : req.flash('loginMessage')});
+	});
+	
+	app.post('/login', passport.authenticate('local-login', {
+		successRedirect : '/dogadd', 
+		failureRedirect : '/login',
+		failureFlash : true,
+	}));
+	
+	// HANDLES USER SIGNUP
+	
+	app.get('/signup', function(req, res){
+		res.render('signup.ejs', {message : req.flash('signupMessage')});
+	});
+	
+	app.post('/signup', function(req, res, next) {
+		passport.authenticate('local-login', {
+			successRedirect : '/dogadd', 
+			failureRedirect : '/signup',
+			failureFlash : true,
+		});
 	});
 
 	// signs the user out of session
@@ -26,21 +47,9 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.send(req.admin);
+		console.log(req.user);
+		res.send("fuck emasdfas");
 	});
-
-	/************************ GOOGLE PLUS AUTHENTICATION ***********************/
-
-	// profile gets us their basic information including their name
-	// email gets their emails
-	app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-	// the callback after google has authenticated the user
-	app.get('/auth/google/callback',
-			passport.authenticate('google', {
-					successRedirect : '/dogadd',
-					failureRedirect : '/login'
-			}));
 
 	/*************************** SERVER SIDE ROUTES ************************/
 

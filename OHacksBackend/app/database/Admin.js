@@ -3,14 +3,31 @@
 // -------------------------------------------------------------------------------//
 
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 
-var schema = mongoose.Schema({
-	admin : {
-		google : {
-			id : String,
-			token : String,
-			email : String,
-			name : String,
-		}}});
+var userSchema = mongoose.Schema({
+	local : {
+		email : String,
+		password : String,
+	},
+	
+	data : [{
+		folder: String,
+		content : [{
+			objType : String,
+			content : String, 
+			dateAdded : String,
+			objName : String,
+			description : String,
+		}]
+	}]}, { minimize : false });
 
-module.exports = mongoose.model('Admin', schema);
+userSchema.methods.generateHash = function(password) {
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+userSchema.methods.validPassword = function(password) {
+	return bcrypt.compareSync(password, this.local.password);
+};
+
+module.exports = mongoose.model('User', userSchema);

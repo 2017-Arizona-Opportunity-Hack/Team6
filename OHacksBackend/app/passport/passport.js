@@ -2,12 +2,12 @@
 // ---------- HANDLES AUTHENTICATION OF THE USER THROUGH PASSPORT ----------------//
 // -------------------------------------------------------------------------------//
 
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var Admin = require('../database/Admin.js');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('../database/User.js');
 
 module.exports = function(passport, auth) {
 	// USER SERIALIZATION OR DESERIALIZATION
-		
+				
 	// IF USER SESSION EXISTS, SERIALIZE 
 	passport.serializeUser(function(user, done){
 		done(null, user.id);
@@ -16,44 +16,64 @@ module.exports = function(passport, auth) {
 	// IF USER SESSION DOES NOT EXIST, SERIALIZE FROM DATABASE
 	passport.deserializeUser(function(id, done) {
 		// FIND USER ID HERE AND RETURN USER SESSION
-		Admin.findById(id, function(err, user){
+		User.findById(id, function(err, user){
 			done(err, user);
 		});
 	});
 	
-	// GOOGLE AUTHENTICATION
-	passport.use(new GoogleStrategy({ // GET EXISTING PARAMETERS FOR GOOGLE AUTH FROM AUTH.JS
-		clientID : auth.googleAuth.clientId,
-		clientSecret : auth.googleAuth.clientSecret,
-		callbackURL : auth.googleAuth.callbackURL,
-	}, function(token, refreshToken, profile, done){
-		// WAIT UNTIL DATA RETURNED:
-		process.nextTick(function() {
-			
-			// ATTEMPT TO FIND USER IN DATABASE : profile.id
-			Admin.findOne({'admin.google.id' : profile.id}, function(err, user){
-				if (err)
-					return done(err);
-				if (user){
-					// USER ALREADY EXISTS
-					return done(null, user);
-				} else {					
-					// CREATE NEW USER AND SAVE IN DB
-					var newUser = new Admin();
+	passport.use('local-signup', new LocalStrategy({
+		usernameField : 'login',
+		passwordField : 'password',
+		passReqToCallback: true
+		}, 
+		function (req, email, password, done){
+			process.nextTick(function(){
+				User.findOne({ 'User.local.email' : email }, function(err, user){					
+					if (err){
+						return done(err);
+					}
 					
-					newUser.user.google.id = profile.id;
-					newUser.user.google.token = token;
-					newUser.user.google.name = profile.displayName;
-					newUser.user.google.email = profile.emails[0].value;
-										
-					newUser.save(function(err){
-						if (err)
-							throw err;
+					if (user){
+						return done(null, false, req.flash('signupMessage', 'Entered Email Already Exists'));
+					}
+					else {
+						var newUser = new User();
+																						
+						newUser.local.email = email;
+						newUser.local.password = newUser.generateHash(password);
 						
-						return done(null, newUser);
-					});
-				}
+						newUser.save(function(err){
+							if (err)
+								throw err;
+							return done(null, newUser);
+						});
+					}
+				});
 			});
+		}
+	));
+	
+	// passport handling for login
+	
+	passport.use('local-login', new LocalStrategy({
+		usernameField : 'login',
+		passwordField : 'password',
+		passReqToCallback: true
+	},
+	function(req, email, password, done){
+		User.findOne({'local.email' : email}, function (err, user){
+			if (err)
+				return done(err);
+			
+			if (!user)
+				return done(null, false, req.flash('loginMessage', "No User Found"));
+			
+			if (!user.validPassword(password))
+				return done(null, false, req.flash('loginMessage', "Wrong Password"));
+			
+			return done(null, user);
 		});
-	}));
+	}
+	));
 }
+
