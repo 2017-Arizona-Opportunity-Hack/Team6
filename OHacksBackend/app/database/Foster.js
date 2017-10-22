@@ -15,8 +15,8 @@ var schema = mongoose.Schema({
 			user_location : String,
 			time_needed_by : String,
 			breed : [String],
-			weightRange : String,
-			ageRange : String
+			weight_range : { min: Number, max: Number },
+			age_range : { min: Number, max: Number }
 		},
 		dogFostered : {
 			dogInfo : {
