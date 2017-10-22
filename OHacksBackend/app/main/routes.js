@@ -317,6 +317,7 @@ module.exports = function(app, passport) {
 			res.send(204);
 		});
 	});
+
 	/*************************** EXTRA ************************/
 
 
