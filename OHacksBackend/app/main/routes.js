@@ -56,6 +56,7 @@ module.exports = function(app, passport) {
 	//	{
 	//		dogName: String
 	//		location: String
+	//		species: String
 	//		breed: String
 	//		weight: Number
 	//	}
@@ -64,6 +65,7 @@ module.exports = function(app, passport) {
 			dogName : req.body.dogName,
 			time_needed_by: (Date.now()/1000)|0,
 			location : req.body.location,
+			species: req.body.species,
 			breed : req.body.breed,
 		 	weight: req.body.weight,
 			owner_id: null,
@@ -141,6 +143,7 @@ module.exports = function(app, passport) {
 			preferences : {
 				user_location : "",
 				time_needed_by : "",
+				species: [""],
 				breed : [""],
 				weightRange : { min: -1, max: -1 },
 				ageRange : { min: -1, max: -1 }
@@ -175,6 +178,7 @@ module.exports = function(app, passport) {
 	// {
 	// user_location: String
 	// time_needed_by: String
+	// species: string
 	// breed: String
 	// weight_range: { min: Number, max: Number }    (-1 for both if no preference)
 	// age_range: { min: Number, max: Number }       (-1 for both if no preference)
@@ -182,6 +186,7 @@ module.exports = function(app, passport) {
 	app.post('/updateFosterPreferences', function(req, res){
 			req.user.Foster.preferences.user_location = req.body.user_location;
 			req.user.Foster.preferences.time_needed_by = req.body.time_needed_by;
+			req.user.Foster.preferences.species = req.body.species;
 			req.user.Foster.preferences.breed = req.body.breed;
 			req.user.Foster.preferences.weight_range = {
 				min: req.body.weight_range.min,
@@ -254,6 +259,7 @@ module.exports = function(app, passport) {
 				return err;
 			}
 
+			var userSpeciesPreferences = req.user.Foster.preferences.species;
 			var userBreedPreferences = req.user.Foster.preferences.breed;
 			var maxWeight = req.user.Foster.preferences.weight_range.max;
 			var minWeight = req.user.Foster.preferences.weight_range.min;
@@ -262,6 +268,9 @@ module.exports = function(app, passport) {
 			var possibleDogs = [];
 
 			dogList.forEach(function(dog) {
+				if(userSpeciesPreferences.indexOf(dog.FosteredDog.species) == -1) {
+					return;
+				}
 				if (userBreedPreferences.indexOf(dog.FosteredDog.breed) == -1) {
 					return;
 				}
