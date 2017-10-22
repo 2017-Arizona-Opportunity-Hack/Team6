@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
 			location : req.body.location,
 			breed : req.body.breed,
 			size : req.body.size,
-			has_owner : false
+			owner_id: null,
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
