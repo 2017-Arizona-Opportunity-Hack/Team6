@@ -15,9 +15,8 @@ module.exports = function(app, passport) {
 	});
 
 	// ANDROID LOGIN/SIGNUP
-	app.post('/android_signup', passport.authenticate('android-signup'));
-	
-	app.post('/android_login', passport.authenticate('android-login'));
+	app.post('/android_signup', passport.authenticate('android-login'));
+	app.post('/android_login', passport.authenticate('android-signup'));
 	
 	// HANDLES USER LOGIN
 
@@ -26,7 +25,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/dogadd',
+		successRedirect : '/admin',
 		failureRedirect : '/login',
 		failureFlash : true,
 	}));
@@ -50,8 +49,8 @@ module.exports = function(app, passport) {
 		res.render('login.ejs');
 	});
 
-	app.get('/dogadd', isLoggedInAuth, function(req, res){
-		res.send("fuck");
+	app.get('/admin', isLoggedInAuth, function(req, res){
+		res.render('admin.ejs');
 	});	
 
 
@@ -311,6 +310,8 @@ module.exports = function(app, passport) {
 	});
 
 	/*************************** EXTRA ************************/
+
+
 	// MIDDLEWARE TO CHECK IF USER IS ALREADY LOGGED IN
 	function isLoggedInAuth(req, res, next) {
 
