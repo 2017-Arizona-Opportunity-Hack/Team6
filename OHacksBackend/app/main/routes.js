@@ -52,11 +52,12 @@ module.exports = function(app, passport) {
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
-	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size
+	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size.
+	//		All fields are strings.
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
 			dogName : req.body.dogName,
-			time_needed_by: req.body.time_needed_by,
+			time_needed_by: (Date.now()/1000)|0,
 			location : req.body.location,
 			breed : req.body.breed,
 			size : req.body.size,
@@ -70,7 +71,8 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster)
+	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster).
+	//		All fields are strings.
 	app.post('/dogFostered', function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
 			if(err) {
@@ -113,6 +115,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// JSON format: email (user's email), and name (user's name). All fields are strings
 	app.post('/addFoster', function(req, res){
 		var fost = new foster({ Foster: {
 			main: {
@@ -149,10 +152,11 @@ module.exports = function(app, passport) {
 	app.get('/getDogList', function(req, res){
 		dog.find(function(err, dogs) {
 			res.json(dogs);
-		}).sort("-time_needed_by");
+		}).sort({ time_needed_by : 'asc' });
 	});
 
-	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
+	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange.
+	//		All fields are strings
 	app.post('/updateFosterPreferences', function(req, res){
 		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
 			if(currFoster === null) {
@@ -172,6 +176,27 @@ module.exports = function(app, passport) {
 				console.log("Must be fine");
 				res.json(204, json);
 			});
+		});
+	});
+
+	// JSON format: dogId (to identify what dog needs its vaccination shit updated), vacc_date (date of vaccination),
+	//		and vacc_info (information about vaccination). All fields are strings
+	app.post('/updateVaccination', function(req, res) {
+		dog.findById(req.body.dogId, function(err, vaccinatedDog) {
+			if(err) {
+				res.send(500);
+				return err;
+			}
+			if(vaccinatedDog === null) {
+				res.send(404);
+				return;
+			}
+			vaccinatedDog.FosteredDog.vacc_date = req.body.vacc_date;
+			vaccinatedDog.FosteredDog.vacc_info = req.body.vacc_info;
+			vaccinatedDog.save(function(err, json) {
+				if(err) return err;
+				res.send(204);
+			})
 		});
 	});
 
