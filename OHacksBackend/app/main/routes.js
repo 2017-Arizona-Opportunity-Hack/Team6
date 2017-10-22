@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
-			res.redirect("/admin")
+			res.redirect("/admin");
 		});
 	});
 
@@ -190,7 +190,7 @@ module.exports = function(app, passport) {
 
 			try {
 				dlString = dateFormat(deadline, "ddd mmmm dd, yy hh:MM");
-			} catch(err) {
+			} catch(ex) {
 				dlString = err.message;
 			}
 
@@ -303,10 +303,10 @@ module.exports = function(app, passport) {
 			var possibleDogs = [];
 
 			dogList.forEach(function(dog) {
-				if(userSpeciesPreferences.indexOf(dog.FosteredDog.species) == -1) {
+				if (userSpeciesPreferences.length > 0 && userSpeciesPreferences.indexOf(dog.FosteredDog.species) == -1) {
 					return;
 				}
-				if (userBreedPreferences.indexOf(dog.FosteredDog.breed) == -1) {
+				if (userBreedPreferences.length > 0 && userBreedPreferences.indexOf(dog.FosteredDog.breed) == -1) {
 					return;
 				}
 
@@ -324,10 +324,17 @@ module.exports = function(app, passport) {
 					}
 				}
 
+				if (req.user.Foster.seenDogs.indexOf(dog._id) > -1) {
+					return;
+				}
+
+				req.user.Foster.seenDogs.push(dog._id);
+				req.user.save();
+
 				possibleDogs.push(dog);
 			});
-
-			req.json(200, possibleDogs);
+			console.log(possibleDogs);
+			res.json(200, possibleDogs);
 		});
 	});
 
