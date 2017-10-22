@@ -47,8 +47,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		console.log(req.user);
-		res.send("fuck emasdfas");
+		res.render('petEntry.ejs');
 	});
 
 	/*************************** SERVER SIDE ROUTES ************************/
