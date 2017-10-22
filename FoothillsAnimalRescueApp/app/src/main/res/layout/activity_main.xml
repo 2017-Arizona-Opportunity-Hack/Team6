@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B71C1C"
+    android:background="@color/colorPrimary"
     tools:context="com.example.geoffrey.foothillsanimalrescueapp.MainActivity">
 
     <ImageView
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:onClick="sendMessage"
-        android:background="#B71C1C"
+        android:background="@color/colorAccent"
         android:width="200dp"
         android:height="50dp"
         android:textColor="#ffffff"
