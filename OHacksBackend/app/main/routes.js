@@ -121,9 +121,12 @@ module.exports = function(app, passport) {
 
 	// Pass the json in with the following fields: user_location, time_needed_by, breed, weightRange, and ageRange
 	app.post('/updateFosterPreferences', function(req, res){
-		foster.findOne({ "Foster.Foster.main.email" : req.body.email }, function(err, currFoster) {
-			if(err) {
+		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
+			if(currFoster == null) {
 				res.send(404);
+				return;
+			}
+			if(err) {
 				return err;
 			}
 			currFoster.preferences.user_location = req.body.user_location;
