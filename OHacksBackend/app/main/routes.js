@@ -83,8 +83,8 @@ module.exports = function(app, passport) {
 					res.send(404);
 					return err;
 				}
-				adoptedDog.owner_id = req.body.ownerId;
-				newFoster.dogFostered.id = req.body.dogId;
+				adoptedDog.FosteredDog.owner_id = req.body.ownerId;
+				newFoster.Foster.dogFostered.id = req.body.dogId;
 				adoptedDog.save(function(err, json) {
 					if(err) return err;
 					res.json(204);
@@ -146,11 +146,11 @@ module.exports = function(app, passport) {
 			if(err) {
 				return err;
 			}
-			currFoster.preferences.user_location = req.body.user_location;
-			currFoster.preferences.time_needed_by = req.body.time_needed_by;
-			currFoster.preferences.breed = req.body.breed;
-			currFoster.preferences.weightRange = req.body.weightRange;
-			currFoster.preferences.ageRange = req.body.ageRange;
+			currFoster.Foster.preferences.user_location = req.body.user_location;
+			currFoster.Foster.preferences.time_needed_by = req.body.time_needed_by;
+			currFoster.Foster.preferences.breed = req.body.breed;
+			currFoster.Foster.preferences.weightRange = req.body.weightRange;
+			currFoster.Foster.preferences.ageRange = req.body.ageRange;
 			currFoster.save(function(err, json) {
 				if(err) return err;
 				res.json(204, json);
