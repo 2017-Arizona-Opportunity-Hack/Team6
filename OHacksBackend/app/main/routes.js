@@ -23,6 +23,11 @@ module.exports = function(app, passport) {
 		res.send(204);
 	});
 	
+	// for testing if user is logged in
+	app.post('/test_confirmed', isLoggedInNoRedirect, function(req, res){
+		res.send(204);
+	});
+	
 	// HANDLES USER LOGIN
 
 	app.get('/login', function(req, res){
@@ -333,5 +338,11 @@ module.exports = function(app, passport) {
 
 		// if they aren't redirect them to the home page
 		res.redirect('/login');
+	}
+	
+	function isLoggedInNoRedirect(req, res, next) {
+		// if user is authenticated in the session, carry on
+		if (req.isAuthenticated() && req.user.Foster.main.is_approved)
+			return next();
 	}
 };
