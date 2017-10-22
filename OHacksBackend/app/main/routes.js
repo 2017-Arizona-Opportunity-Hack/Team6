@@ -194,6 +194,9 @@ module.exports = function(app, passport) {
 
 	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
 		foster.find(function(err, fosters) {
+			fosters.forEach(function(f) {
+				f.Foster.main.password = "";
+			});
 			res.json(fosters);
 		});
 	});
