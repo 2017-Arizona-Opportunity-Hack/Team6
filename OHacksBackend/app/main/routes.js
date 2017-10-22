@@ -163,11 +163,11 @@ module.exports = function(app, passport) {
 			if(err) {
 				return err;
 			}
-			currFoster.preferences.user_location = req.body.user_location;
-			currFoster.preferences.time_needed_by = req.body.time_needed_by;
-			currFoster.preferences.breed = req.body.breed;
-			currFoster.preferences.weightRange = req.body.weightRange;
-			currFoster.preferences.ageRange = req.body.ageRange;
+			currFoster.Foster.preferences.user_location = req.body.user_location;
+			currFoster.Foster.preferences.time_needed_by = req.body.time_needed_by;
+			currFoster.Foster.preferences.breed = req.body.breed;
+			currFoster.Foster.preferences.weightRange = req.body.weightRange;
+			currFoster.Foster.preferences.ageRange = req.body.ageRange;
 			currFoster.save(function(err, json) {
 				if(err) return err;
 				res.json(204, json);
