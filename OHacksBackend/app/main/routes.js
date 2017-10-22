@@ -170,6 +170,7 @@ module.exports = function(app, passport) {
 			currFoster.Foster.preferences.ageRange = req.body.ageRange;
 			currFoster.save(function(err, json) {
 				if(err) return err;
+				console.log("Must be fine");
 				res.json(204, json);
 			});
 		});
