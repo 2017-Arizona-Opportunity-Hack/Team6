@@ -14,6 +14,10 @@ module.exports = function(app, passport) {
 		res.render("login.ejs");
 	});
 
+	// ANDROID LOGIN/SIGNUP
+	app.post('/android_signup', passport.authenticate('android-login'));
+	app.post('/android_login', passport.authenticate('android-signup'));
+	
 	// HANDLES USER LOGIN
 
 	app.get('/login', function(req, res){
@@ -32,13 +36,12 @@ module.exports = function(app, passport) {
 		res.render('signup.ejs', {message : req.flash('signupMessage')});
 	});
 
-	app.post('/signup', function(req, res, next) {
-		passport.authenticate('local-login', {
+	app.post('/signup', 	
+		passport.authenticate('local-signup', {
 			successRedirect : '/dogadd',
 			failureRedirect : '/signup',
 			failureFlash : true,
-		});
-	});
+		}));
 
 	// signs the user out of session
 	app.get('/logout', function(req, res){
@@ -47,8 +50,9 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.send(req.user);
-	});
+		res.send("fuck");
+	});	
+
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
