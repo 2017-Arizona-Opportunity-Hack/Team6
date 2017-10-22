@@ -29,3 +29,16 @@ input[type=submit]:hover {
 #pets{
     margin-bottom: 2%;
 }
+
+.dogbox {
+  width: 50%;
+  border: 1px solid black;
+  display: inline-block;
+  padding: 20px;
+  margin: 20px;
+  background-color: #AAAAAA;
+}
+
+.dogbox tr td:first-child {
+  padding-right: 40px;
+}
