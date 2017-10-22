@@ -54,18 +54,39 @@ module.exports = function(app, passport) {
 	/*************************** SERVER SIDE ROUTES ************************/
 
 	app.post('/addNeededDog', function(req, res){
-		dog.create(req.body, function(err, post) {
+		var dogPost = new dog({ FosteredDog: {
+			time_needed_by: req.body.time_needed_by,
+			location : req.body.location,
+			breed : req.body.type,
+			size : req.body.size,
+			owner_id : req.body.owner_id,
+			has_owner : req.body.has_owner,
+			vacc_date : req.body.vacc_date,
+			vacc_info : req.body.vacc_info
+		}});
+		dogPost.save(function(err, json) {
 			if(err) return err;
-			res.json(post);
+			res.json(201, json);
 		});
 	});
 
-	app.post('/fosteredDogFound', function(req, res){
+	app.post('/fosteredDogAdopted', function(req, res){
 
 	});
 
-	app.post('/addUser', function(req, res){
+	app.post('/addFoster', function(req, res){
+		var fost = new foster({ Foster: {
+			main: {
+				email: req.body.email,
+				name: req.body.name,
+				is_approved: false,
+			}
+		}});
 
+		fost.save(function(err, json) {
+			if (err) return err;
+			res.json(201, json);
+		});
 	});
 
 	app.get('/sendNotifToUser', function(req, res){
@@ -78,13 +99,21 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
-	app.post('/addUserPreferences', function(req, res){
-		var fosterPreference = new foster({
-			fosterPreferences: req.body.preferences
-		});
-		fosterPreference.save(function(err,post) {
-			if(err) return err;
-			res.json(post);
+	app.post('/updateFosterPreferences', function(req, res){
+		foster.findOne(req.body.email, function(err, currFoster) {
+			if(err) {
+				res.send(404);
+				return err;
+			}
+			currFoster.preferences.user_location = req.body.user_location;
+			currFoster.preferences.time_needed_by = req.body.time_needed_by;
+			currFoster.preferences.breed = req.body.breed;
+			currFoster.preferences.weightRange = req.body.weightRange;
+			currFoster.preferences.ageRange = req.body.ageRange;
+			currFoster.save(function(err, json) {
+				if(err) return err;
+				res.json(204, json);
+			});
 		});
 	});
 
