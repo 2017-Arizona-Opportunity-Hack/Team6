@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.ohacks.opportunityhacks.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/foothills_logo"
+        android:layout_above="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp"
+        android:layout_marginTop="39dp"/>
+
+    <View
+        android:id="@+id/bottom_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="39dp"
+        android:text="Username"
+        android:textSize="20dp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="#606060"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Password"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:layout_below="@+id/username"
+        android:layout_alignStart="@+id/username" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="11dp"
+        android:textColor="#606060"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signupbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:onClick="sendMessage"
+        android:background="@color/colorAccent"
+        android:width="200dp"
+        android:height="50dp"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_above="@+id/joinUs"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginBottom="11dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not a registered foster?"
+        android:textColor="#606060"
+        android:layout_alignBaseline="@+id/joinUs"
+        android:layout_alignBottom="@+id/joinUs"
+        android:layout_alignStart="@+id/password" />
+
+    <Button
+        android:id="@+id/joinUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:textColor="#606060"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView2"
+        android:text="Join Us" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/errormessage"/>
+
+</RelativeLayout>
