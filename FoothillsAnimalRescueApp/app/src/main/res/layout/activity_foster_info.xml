@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.geoffrey.foothillsanimalrescueapp.FosterInfo">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Thank you for your request!"
+        android:textSize="25dp"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="When can you take Spot in?"
+        android:textColor="#606060"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BootstrapButtonGroup"
+        android:orientation="horizontal"
+        app:bootstrapBrand="danger"
+        app:showOutline="true"
+        app:bootstrapSize="md"
+        android:layout_marginTop="13dp"
+        android:id="@+id/bootstrapButtonGroup"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/tomorrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tomorrow" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/later"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Later"
+            />
+    </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How many hours do you work a day?"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/bootstrapButtonGroup"
+        android:layout_alignStart="@+id/textView4" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BootstrapButtonGroup"
+        android:orientation="horizontal"
+        app:bootstrapBrand="danger"
+        app:showOutline="true"
+        app:bootstrapSize="md"
+        android:layout_marginTop="29dp"
+        android:id="@+id/bootstrapButtonGroup2"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/bootstrapButtonGroup">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/less5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="< 5 hrs." />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/less8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 - 8 hrs." />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/more8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="> 8 hrs."
+            />
+    </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/bootstrapButtonGroup2"
+        android:layout_marginTop="29dp"
+        android:text="Are you comfortable with giving medication?" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButtonGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BootstrapButtonGroup"
+        android:orientation="horizontal"
+        app:bootstrapBrand="danger"
+        app:showOutline="true"
+        app:bootstrapSize="md"
+        android:layout_marginTop="25dp"
+        android:id="@+id/bootstrapButtonGroup3"
+        android:layout_below="@+id/textView6"
+        android:layout_centerHorizontal="true">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No" />
+
+    </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:background="@color/colorAccent"
+        android:width="250dp"
+        android:height="30dp"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:text="Submit"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
