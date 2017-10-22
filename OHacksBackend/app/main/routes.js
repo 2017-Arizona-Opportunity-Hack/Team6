@@ -104,7 +104,7 @@ module.exports = function(app, passport) {
 			currFoster.save(function(err, json) {
 				if(err) return err;
 				res.json(204, json);
-			})
+			});
 		});
 	});
 
