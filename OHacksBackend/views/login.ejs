@@ -1,27 +1,50 @@
-<!-- views/index.ejs -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <style>
-        body        { padding-top:80px; }
-    </style>
-</head>
-<body>
-<div class="container">
+	<style>
+	h2{
+		text-align: center;
+	}
+	
+	input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+	}
+	button {
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+	}
+	.container {
+		padding: 16px;
+	}
+	span.psw {
+		float: right;
+		padding-top: 16px;
+	}
+	</style>
+	<body>
 
-    <div class="jumbotron text-center">
-        <h1><span class="fa fa-lock"></span> Node Authentication</h1>
+	<h2>Steven's Login Page</h2>
+	
+	<form action="/login" method = "POST">
+	  <div class="container">
+		<label><b>Username</b></label>
+		<input type="text" placeholder="Enter Username" name="login" required>
 
-        <p>Login or Register with:</p>
+		<label><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="password" required>
+			
+		<button type="submit">Login</button>
+	  </div>
+	</form>
 
-        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
-
-    </div>
-
-</div>
-</body>
-</html>  
+	</body>
+</html>

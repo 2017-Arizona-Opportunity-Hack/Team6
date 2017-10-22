@@ -11,12 +11,33 @@ module.exports = function(app, passport) {
 
 	// home page
 	app.get('/', function(req, res){
-		res.send("hello");
+		res.render("login.ejs");
 	});
 
-	// login page; google plus auth
+	// HANDLES USER LOGIN
+	
 	app.get('/login', function(req, res){
-		res.render('login.ejs');
+		res.render('login.ejs', {message : req.flash('loginMessage')});
+	});
+	
+	app.post('/login', passport.authenticate('local-login', {
+		successRedirect : '/dogadd', 
+		failureRedirect : '/login',
+		failureFlash : true,
+	}));
+	
+	// HANDLES USER SIGNUP
+	
+	app.get('/signup', function(req, res){
+		res.render('signup.ejs', {message : req.flash('signupMessage')});
+	});
+	
+	app.post('/signup', function(req, res, next) {
+		passport.authenticate('local-login', {
+			successRedirect : '/dogadd', 
+			failureRedirect : '/signup',
+			failureFlash : true,
+		});
 	});
 
 	// signs the user out of session
@@ -26,21 +47,8 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.send(req.admin);
+		res.render('petEntry.ejs');
 	});
-
-	/************************ GOOGLE PLUS AUTHENTICATION ***********************/
-
-	// profile gets us their basic information including their name
-	// email gets their emails
-	app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-	// the callback after google has authenticated the user
-	app.get('/auth/google/callback',
-			passport.authenticate('google', {
-					successRedirect : '/dogadd',
-					failureRedirect : '/login'
-			}));
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
@@ -61,7 +69,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.post('/fosteredDogFound', function(req, res){
+	app.post('/fosteredDogAdopted', function(req, res){
 
 	});
 
@@ -90,13 +98,21 @@ module.exports = function(app, passport) {
 		}).sort("-time_needed_by");
 	});
 
-	app.post('/addFosterPreferences', function(req, res){
-		var fosterPreference = new foster({
-			preferences: req.body.preferences
-		});
-		fosterPreference.save(function(err, fosterPreference) {
-			if(err) return err;
-			res.json(fosterPreference);
+	app.post('/updateFosterPreferences', function(req, res){
+		foster.findOne(req.body.email, function(err, currFoster) {
+			if(err) {
+				res.send(404);
+				return err;
+			}
+			currFoster.preferences.user_location = req.body.user_location;
+			currFoster.preferences.time_needed_by = req.body.time_needed_by;
+			currFoster.preferences.breed = req.body.breed;
+			currFoster.preferences.weightRange = req.body.weightRange;
+			currFoster.preferences.ageRange = req.body.ageRange;
+			currFoster.save(function(err, json) {
+				if(err) return err;
+				res.json(204, json);
+			});
 		});
 	});
 
