@@ -191,7 +191,7 @@ module.exports = function(app, passport) {
 			try {
 				dlString = dateFormat(deadline, "ddd mmmm dd, yy hh:MM");
 			} catch(ex) {
-				dlString = err.message;
+				dlString = ex.message;
 			}
 
 			res.render("dog.ejs", { dog: fd, deadline: dlString });
