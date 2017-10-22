@@ -15,26 +15,26 @@ module.exports = function(app, passport) {
 	});
 
 	// HANDLES USER LOGIN
-
+	
 	app.get('/login', function(req, res){
 		res.render('login.ejs', {message : req.flash('loginMessage')});
 	});
-
+	
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/dogadd',
+		successRedirect : '/dogadd', 
 		failureRedirect : '/login',
 		failureFlash : true,
 	}));
-
+	
 	// HANDLES USER SIGNUP
-
+	
 	app.get('/signup', function(req, res){
 		res.render('signup.ejs', {message : req.flash('signupMessage')});
 	});
-
+	
 	app.post('/signup', function(req, res, next) {
 		passport.authenticate('local-login', {
-			successRedirect : '/dogadd',
+			successRedirect : '/dogadd', 
 			failureRedirect : '/signup',
 			failureFlash : true,
 		});
@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.render('petEntry.ejs');
+		res.send(req.user);
 	});
 
 	/*************************** SERVER SIDE ROUTES ************************/
@@ -55,7 +55,6 @@ module.exports = function(app, passport) {
 	// Pass the json format with the following fields: dogName, time_needed_by, location, type, and size
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
-			dogName : req.body.dogName,
 			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
 			breed : req.body.type,
@@ -68,6 +67,10 @@ module.exports = function(app, passport) {
 		});
 	});
 
+<<<<<<< HEAD
+	app.post('/fosteredDogAdopted', function(req, res){
+
+=======
 	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster)
 	app.post('/dogFostered', function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
@@ -92,6 +95,7 @@ module.exports = function(app, passport) {
 				});
 			});
 		});
+>>>>>>> 6af981a016fdb503e8355dc5b50ca5fee28100de
 	});
 
 	app.post('/addFoster', function(req, res){
