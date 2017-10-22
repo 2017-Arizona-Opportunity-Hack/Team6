@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
+	isAdmin : Boolean,
 	local : {
 		email : String,
 		password : String,

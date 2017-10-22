@@ -7,3 +7,5 @@ user: admin
 pass: password
 port: 27865
 dataase: foothillsanimalrescue
+
+foothills.herokuapp.com

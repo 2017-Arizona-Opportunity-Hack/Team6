@@ -14,6 +14,10 @@ module.exports = function(app, passport) {
 		res.render("login.ejs");
 	});
 
+	// ANDROID LOGIN/SIGNUP
+	app.post('/android_signup', passport.authenticate('android-login'));
+	app.post('/android_login', passport.authenticate('android-signup'));
+	
 	// HANDLES USER LOGIN
 
 	app.get('/login', function(req, res){
@@ -32,13 +36,12 @@ module.exports = function(app, passport) {
 		res.render('signup.ejs', {message : req.flash('signupMessage')});
 	});
 
-	app.post('/signup', function(req, res, next) {
-		passport.authenticate('local-login', {
+	app.post('/signup', 	
+		passport.authenticate('local-signup', {
 			successRedirect : '/dogadd',
 			failureRedirect : '/signup',
 			failureFlash : true,
-		});
-	});
+		}));
 
 	// signs the user out of session
 	app.get('/logout', function(req, res){
@@ -46,9 +49,10 @@ module.exports = function(app, passport) {
 		res.render('login.ejs');
 	});
 
-	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.send(req.user);
-	});
+	app.get('/dogadd', isLoggedInAuth, function(req, res){
+		res.send("fuck");
+	});	
+
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
@@ -56,6 +60,7 @@ module.exports = function(app, passport) {
 	//	{
 	//		dogName: String
 	//		location: String
+	//		species: String
 	//		breed: String
 	//		weight: Number
 	//	}
@@ -64,6 +69,7 @@ module.exports = function(app, passport) {
 			dogName : req.body.dogName,
 			time_needed_by: (Date.now()/1000)|0,
 			location : req.body.location,
+			species: req.body.species,
 			breed : req.body.breed,
 		 	weight: req.body.weight,
 			owner_id: null,
@@ -141,7 +147,8 @@ module.exports = function(app, passport) {
 			preferences : {
 				user_location : "",
 				time_needed_by : "",
-				breed : [""],
+				species: [],
+				breed : [],
 				weightRange : { min: -1, max: -1 },
 				ageRange : { min: -1, max: -1 }
 			},
@@ -175,36 +182,29 @@ module.exports = function(app, passport) {
 	// {
 	// user_location: String
 	// time_needed_by: String
+	// species: string
 	// breed: String
 	// weight_range: { min: Number, max: Number }    (-1 for both if no preference)
 	// age_range: { min: Number, max: Number }       (-1 for both if no preference)
 	// }
 	app.post('/updateFosterPreferences', function(req, res){
-		foster.findOne({ "Foster.main.email" : req.body.email }, function(err, currFoster) {
-			if(currFoster === null) {
-				res.send(404);
-				return;
-			}
-			if(err) {
-				return err;
-			}
-			currFoster.Foster.preferences.user_location = req.body.user_location;
-			currFoster.Foster.preferences.time_needed_by = req.body.time_needed_by;
-			currFoster.Foster.preferences.breed = req.body.breed;
-			currFoster.Foster.preferences.weight_range = {
+			req.user.Foster.preferences.user_location = req.body.user_location;
+			req.user.Foster.preferences.time_needed_by = req.body.time_needed_by;
+			req.user.Foster.preferences.species = req.body.species;
+			req.user.Foster.preferences.breed = req.body.breed;
+			req.user.Foster.preferences.weight_range = {
 				min: req.body.weight_range.min,
 				max: req.body.weight_range.max
 			};
-			currFoster.Foster.preferences.age_range = {
+			req.user.Foster.preferences.age_range = {
 				min: req.body.age_range.min,
 				max: req.body.age_range.max
 			};
 
-			currFoster.save(function(err, json) {
+			req.user.save(function(err, json) {
 				if(err) return err;
 				res.json(204, json);
 			});
-		});
 	});
 
 	// Pass the JSON in with the following fields:
@@ -255,6 +255,51 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// TODO steven: add authentication middleware
+	app.get('/getApplicableDogs', function(req, res) {
+		dog.find(function(err, dogList) {
+			if (err) {
+				res.send(500);
+				return err;
+			}
+
+			var userSpeciesPreferences = req.user.Foster.preferences.species;
+			var userBreedPreferences = req.user.Foster.preferences.breed;
+			var maxWeight = req.user.Foster.preferences.weight_range.max;
+			var minWeight = req.user.Foster.preferences.weight_range.min;
+			var maxAge = req.user.Foster.preferences.age_range.max;
+			var minAge = req.user.Foster.preferences.age_range.min;
+			var possibleDogs = [];
+
+			dogList.forEach(function(dog) {
+				if(userSpeciesPreferences.indexOf(dog.FosteredDog.species) == -1) {
+					return;
+				}
+				if (userBreedPreferences.indexOf(dog.FosteredDog.breed) == -1) {
+					return;
+				}
+
+				if (maxWeight > -1 && minWeight > -1) {
+					if (dog.FosteredDog.weight > maxWeight ||
+						dog.FosteredDog.weight < minWeight) {
+						return;
+					}
+				}
+
+				if (maxAge > -1 && minAge > -1) {
+					if (dog.FosteredDog.age > maxAge ||
+						dog.fosteredDog.age < minAge) {
+						return;
+					}
+				}
+
+				possibleDogs.push(dog);
+			});
+
+			req.json(200, possibleDogs);
+		});
+	});
+
 	//	Pass the JSON in with the following field:
 	//	{
 	//		dogId: String
@@ -276,12 +321,22 @@ module.exports = function(app, passport) {
 			res.send(204);
 		});
 	});
+
 	/*************************** EXTRA ************************/
 
 
 	// MIDDLEWARE TO CHECK IF USER IS ALREADY LOGGED IN
-	function isLoggedIn(req, res, next) {
+	function isLoggedInAuth(req, res, next) {
 
+		// if user is authenticated in the session, carry on
+		if (req.isAuthenticated() && req.user.isAdmin)
+			return next();
+
+		// if they aren't redirect them to the home page
+		res.redirect('/login');
+	}
+	
+	function isLoggedIn(req, res, next) {		
 		// if user is authenticated in the session, carry on
 		if (req.isAuthenticated())
 			return next();
