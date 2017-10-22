@@ -5,10 +5,15 @@
 - node.js
 ### Installation
 after cloning,
+
 `cd OHacksBackend`
+
 install dependencies
+
 `npm install`
+
 start up node server
+
 `node index.js`
 
 ## The Problem
