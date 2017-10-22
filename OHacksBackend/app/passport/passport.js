@@ -49,7 +49,7 @@ module.exports = function(passport, auth) {
 			});
 	}));
 	
-	passport.use('android-signup', new LocalStrategy({
+	passport.use('android-signup', new LocalStrategy(
 	function(username, pass, done){		
 		Foster.findOne({ 'Foster.main.email' : username }, function(err, user){					
 					if (err){
