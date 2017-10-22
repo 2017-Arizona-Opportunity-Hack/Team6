@@ -37,6 +37,8 @@ input[type=submit]:hover {
   padding: 20px;
   margin: 20px;
   background-color: #AAAAAA;
+  border-radius: 10px;
+  box-shadow: 2px 2px;
 }
 
 .dogbox tr td:first-child {
