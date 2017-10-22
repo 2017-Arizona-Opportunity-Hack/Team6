@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
 		}});
 		dogPost.save(function(err, json) {
 			if(err) return err;
-			res.json(201, json);
+			res.redirect("/admin")
 		});
 	});
 
@@ -261,6 +261,8 @@ module.exports = function(app, passport) {
 				res.send(500);
 				return err;
 			}
+
+			console.log(confirmee);
 
 			if (!confirmee) {
 				res.send(404);
