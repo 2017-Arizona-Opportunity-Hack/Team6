@@ -4,6 +4,7 @@
 
 var dog = require('../database/FosteredDog.js');
 var foster = require('../database/Foster.js');
+var dateFormat = require('dateformat');
 
 module.exports = function(app, passport) {
 
@@ -170,8 +171,24 @@ module.exports = function(app, passport) {
 		}).sort({ time_needed_by : 'asc' });
 	});
 
-	app.get('/getDogInfo', function(req, res) {
-		// TODO
+	app.get('/dogInfo', function(req, res) {
+		dog.findById(req.query.dogId, function(err, fd) {
+			if (err) {
+				res.send(500);
+				return err;
+			}
+
+			if (!fd) {
+				res.send(404);
+				return;
+			}
+
+			var deadline = new Date();
+			deadline.setSeconds(fd.FosteredDog.time_needed_by);
+			var dlString = dateFormat(deadline, "dd:mm:yy hh:MM");
+
+			res.render("dog.ejs", { dog: fd, deadline: dlString });
+		});
 	});
 
 	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
