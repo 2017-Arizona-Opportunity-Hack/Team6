@@ -4,6 +4,7 @@
 
 var dog = require('../database/FosteredDog.js');
 var foster = require('../database/Foster.js');
+var dateFormat = require('dateformat');
 
 module.exports = function(app, passport) {
 
@@ -60,7 +61,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/admin', isLoggedInAuth, function(req, res){
-		res.render('admin.ejs');
+		res.render('admin.ejs', {user: req.user});
 	});
 
 
@@ -169,6 +170,26 @@ module.exports = function(app, passport) {
 		dog.find(function(err, dogs) {
 			res.json(dogs);
 		}).sort({ time_needed_by : 'asc' });
+	});
+
+	app.get('/dogInfo', function(req, res) {
+		dog.findById(req.query.dogId, function(err, fd) {
+			if (err) {
+				res.send(500);
+				return err;
+			}
+
+			if (!fd) {
+				res.send(404);
+				return;
+			}
+
+			var deadline = new Date();
+			deadline.setSeconds(fd.FosteredDog.time_needed_by);
+			var dlString = dateFormat(deadline, "dd:mm:yy hh:MM");
+
+			res.render("dog.ejs", { dog: fd, deadline: dlString });
+		});
 	});
 
 	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
@@ -345,7 +366,7 @@ module.exports = function(app, passport) {
 
 	function isLoggedInNoRedirect(req, res, next) {
 		// if user is authenticated in the session, carry on
-		if (req.isAuthenticated() && req.user.Foster.main.is_approved)
+		if (req.isAuthenticated())
 			return next();
 	}
 };

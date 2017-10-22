@@ -4,7 +4,7 @@
   "description": "Backend for opportunity hacks project -- for Foothills Animal Rescue",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "Steven Tran, Ryan Yiu, Geoffrey Wong, Vivek Mohendra, Sid Kulkarni",
   "license": "ISC",
@@ -21,13 +21,10 @@
     "mongoose": "~4.4",
     "morgan": "^1.9.0",
     "passport": "~0.1.17",
-    "passport-local": "^1.0.0"
-  },
-  "scripts": {
-    "start": "node index.js"
+    "passport-local": "^1.0.0",
+    "dateformat": "3.0.2"
   },
   "engines": {
     "node": "8.3.0"
   }
-
 }
