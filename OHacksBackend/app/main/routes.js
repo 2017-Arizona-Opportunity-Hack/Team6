@@ -15,26 +15,26 @@ module.exports = function(app, passport) {
 	});
 
 	// HANDLES USER LOGIN
-
+	
 	app.get('/login', function(req, res){
 		res.render('login.ejs', {message : req.flash('loginMessage')});
 	});
-
+	
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/dogadd',
+		successRedirect : '/dogadd', 
 		failureRedirect : '/login',
 		failureFlash : true,
 	}));
-
+	
 	// HANDLES USER SIGNUP
-
+	
 	app.get('/signup', function(req, res){
 		res.render('signup.ejs', {message : req.flash('signupMessage')});
 	});
-
+	
 	app.post('/signup', function(req, res, next) {
 		passport.authenticate('local-login', {
-			successRedirect : '/dogadd',
+			successRedirect : '/dogadd', 
 			failureRedirect : '/signup',
 			failureFlash : true,
 		});
@@ -47,14 +47,13 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/dogadd', isLoggedIn, function(req, res){
-		res.render('petEntry.ejs');
+		res.send(req.user);
 	});
 
 	/*************************** SERVER SIDE ROUTES ************************/
 
 	app.post('/addNeededDog', function(req, res){
 		var dogPost = new dog({ FosteredDog: {
-			dogName : req.body.dogName,
 			time_needed_by: req.body.time_needed_by,
 			location : req.body.location,
 			breed : req.body.type,
@@ -70,30 +69,8 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// req passed in should have dogId for the id of the dog and should have ownerId for the id of the owner
-	app.post('/dogFostered', function(req, res){
-		dog.findById(req.body.dogId, function(err, adoptedDog) {
-			if(err) {
-				res.send(404);
-				return err;
-			}
-			foster.findById(req.body.ownerId, function(err, newFoster) {
-				if(err) {
-					res.send(404);
-					return err;
-				}
-				adoptedDog.owner_id = req.body.ownerId;
-				newFoster.dogFostered.id = req.body.dogId;
-				adoptedDog.save(function(err, json) {
-					if(err) return err;
-					res.json(204);
-				});
-				newFoster.save(function(err, json) {
-					if(err) return err;
-					res.json(204);
-				});
-			});
-		});
+	app.post('/fosteredDogAdopted', function(req, res){
+
 	});
 
 	app.post('/addFoster', function(req, res){
