@@ -7,10 +7,24 @@
   </head>
 
   <body>
-    <div id="header"><img src="/images/logo-web.png"></img></div>
-    <div id="container">
-      hello
-      <div id="dogs">hi</div>
+    <div id="maincontainer">
+      <div id="header">
+        <img src="/images/logo-web.png"></img>
+        <div id="welcome">
+          Welcome, <%= user.local.email  %>
+          <br><a href="/logout">Logout</a>
+        </div>
+      </div>
+
+      <div id="contentcontainer">
+        <div id="dogs">
+          <% include dogs %>
+        </div>
+
+        <div id="fosterers">
+          <% include fosterers %>
+        </div>
+      </div>
     </div>
   </body>
 </html>

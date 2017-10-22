@@ -55,7 +55,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/admin', isLoggedInAuth, function(req, res){
-		res.render('admin.ejs');
+		res.render('admin.ejs', {user: req.user});
 	});	
 
 
@@ -163,6 +163,10 @@ module.exports = function(app, passport) {
 		dog.find(function(err, dogs) {
 			res.json(dogs);
 		}).sort({ time_needed_by : 'asc' });
+	});
+
+	app.get('/getDogInfo', function(req, res) {
+		// TODO
 	});
 
 	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
