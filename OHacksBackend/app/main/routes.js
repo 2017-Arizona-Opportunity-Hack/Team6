@@ -69,7 +69,7 @@ module.exports = function(app, passport) {
 	//		breed: String
 	//		weight: Number
 	//	}
-	app.post('/addNeededDog', function(req, res){
+	app.post('/addNeededDog', isLoggedInAuth, function(req, res){
 		var dogPost = new dog({ FosteredDog: {
 			dogName : req.body.dogName,
 			time_needed_by: (Date.now()/1000)|0,
@@ -87,14 +87,12 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// Pass the json in with the following fields: dogId (for the id of the dog) and ownerId (for the new foster).
-	//		All fields are strings.
+	// Pass the json in with the following fields: dogId (for the id of the dog)
 	//	Pass the JSON with the following fields:
 	//	{
 	//		dogId: String
-	//		ownerId: String
 	//	}
-	app.post('/dogFostered', function(req, res){
+	app.post('/dogFostered', isLoggedIn, function(req, res){
 		dog.findById(req.body.dogId, function(err, adoptedDog) {
 			if(err) {
 				res.send(500);
@@ -111,27 +109,16 @@ module.exports = function(app, passport) {
 				return;
 			}
 
-			foster.findById(req.body.ownerId, function(err, newFoster) {
-				if(err) {
-					res.send(500);
-					return err;
-				}
 
-				if (newFoster === null) {
-					res.send(404);
-					return;
-				}
-
-				adoptedDog.FosteredDog.owner_id = req.body.ownerId;
-				newFoster.Foster.dogFostered.id = req.body.dogId;
-				adoptedDog.save(function(err, json) {
-					if(err) return err;
-					res.send(204);
-				});
-				newFoster.save(function(err, json) {
-					if(err) return err;
-					res.send(204);
-				});
+			adoptedDog.FosteredDog.owner_id = req.user.id;
+			req.user.Foster.dogFostered.id = req.body.dogId;
+			adoptedDog.save(function(err, json) {
+				if(err) return err;
+				res.send(204);
+			});
+			req.user.save(function(err, json) {
+				if(err) return err;
+				res.send(204);
 			});
 		});
 	});
@@ -178,7 +165,7 @@ module.exports = function(app, passport) {
 		}).sort({ time_needed_by : 'asc' });
 	});
 
-	app.get('/getFosterList', function(req, res) {
+	app.get('/getFosterList', isLoggedInAuth, function(req, res) {
 		foster.find(function(err, fosters) {
 			res.json(fosters);
 		});
@@ -192,7 +179,7 @@ module.exports = function(app, passport) {
 	// weight_range: { min: Number, max: Number }    (-1 for both if no preference)
 	// age_range: { min: Number, max: Number }       (-1 for both if no preference)
 	// }
-	app.post('/updateFosterPreferences', function(req, res){
+	app.post('/updateFosterPreferences', isLoggedIn, function(req, res){
 			req.user.Foster.preferences.user_location = req.body.user_location;
 			req.user.Foster.preferences.time_needed_by = req.body.time_needed_by;
 			req.user.Foster.preferences.species = req.body.species;
@@ -218,7 +205,7 @@ module.exports = function(app, passport) {
 	//	vacc_date: Number
 	//	vacc_info: String
 	//}
-	app.post('/updateVaccination', function(req, res) {
+	app.post('/updateVaccination', isLoggedIn, function(req, res) {
 		dog.findById(req.body.dogId, function(err, vaccinatedDog) {
 			if(err) {
 				res.send(500);
@@ -238,7 +225,7 @@ module.exports = function(app, passport) {
 	});
 
 	// body of request: { fosterId: <id of the fosterer that is supposed to be confirmed> }
-	app.post('/confirmUser', isLoggedIn, function(req, res) {
+	app.post('/confirmUser', isLoggedInAuth, function(req, res) {
 		foster.findById(req.body.fosterId, function(err, confirmee) {
 			if (err) {
 				res.send(500);
@@ -261,7 +248,7 @@ module.exports = function(app, passport) {
 	});
 
 	// TODO steven: add authentication middleware
-	app.get('/getApplicableDogs', function(req, res) {
+	app.get('/getApplicableDogs', isLoggedIn, function(req, res) {
 		dog.find(function(err, dogList) {
 			if (err) {
 				res.send(500);
@@ -309,7 +296,7 @@ module.exports = function(app, passport) {
 	//	{
 	//		dogId: String
 	//	}
-	app.delete('/removeDog', function(req, res) {
+	app.delete('/removeDog', isLoggedInAuth, function(req, res) {
 		dog.findByIdAndRemove(req.body.dogId, function(err) {
 			if(err) return err;
 			res.send(204);
@@ -320,7 +307,7 @@ module.exports = function(app, passport) {
 	//	{
 	//		fosterId: String
 	//	}
-	app.delete('/removeFoster', function(req, res) {
+	app.delete('/removeFoster', isLoggedInAuth, function(req, res) {
 		foster.findByIdAndRemove(req.body.fosterId, function(err) {
 			if(err) return err;
 			res.send(204);
@@ -341,7 +328,7 @@ module.exports = function(app, passport) {
 	
 	function isLoggedIn(req, res, next) {		
 		// if user is authenticated in the session, carry on
-		if (req.isAuthenticated())
+		if (req.isAuthenticated() && req.user.Foster.main.is_approved)
 			return next();
 
 		// if they aren't redirect them to the home page
