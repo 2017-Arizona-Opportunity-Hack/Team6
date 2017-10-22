@@ -1,5 +1,6 @@
 package com.example.geoffrey.foothillsanimalrescueapp;
 
+import android.app.ActionBar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +12,12 @@ public class FosterInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foster_info);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

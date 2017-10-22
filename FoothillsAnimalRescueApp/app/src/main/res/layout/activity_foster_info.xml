@@ -80,25 +80,25 @@
         android:layout_marginTop="29dp"
         android:id="@+id/bootstrapButtonGroup2"
         android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/bootstrapButtonGroup">
+        android:layout_centerHorizontal="true">
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/less5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="< 5 hrs." />
+            android:text="5" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/less8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5 - 8 hrs." />
+            android:text="58" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/more8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="> 8 hrs."
+            android:text="8"
             />
     </com.beardedhen.androidbootstrap.BootstrapButtonGroup>
 
