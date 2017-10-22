@@ -230,6 +230,29 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// body of request: { fosterId: <id of the fosterer that is supposed to be confirmed> }
+	app.post('/confirmUser', isLoggedIn, function(req, res) {
+		foster.findById(req.body.fosterId, function(err, confirmee) {
+			if (err) {
+				res.send(500);
+				return err;
+			}
+
+			if (!confirmee) {
+				res.send(404);
+				return;
+			}
+
+			if (confirmee.Foster.is_approved) {
+				res.send(410);
+				return;
+			}
+
+			confirmee.Foster.is_approved = true;
+			res.send(204);
+		});
+	});
+
 	app.get('/sendNotificationToAll', function(req, res){
 
 	});
