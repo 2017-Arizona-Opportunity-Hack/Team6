@@ -49,7 +49,7 @@ module.exports = function(app, passport) {
 		res.render('login.ejs');
 	});
 
-	app.get('/dogadd', isLoggedIn, function(req, res){
+	app.get('/dogadd', isLoggedInAuth, function(req, res){
 		res.send("fuck");
 	});	
 
@@ -326,8 +326,17 @@ module.exports = function(app, passport) {
 
 
 	// MIDDLEWARE TO CHECK IF USER IS ALREADY LOGGED IN
-	function isLoggedIn(req, res, next) {
+	function isLoggedInAuth(req, res, next) {
 
+		// if user is authenticated in the session, carry on
+		if (req.isAuthenticated() && req.user.isAdmin)
+			return next();
+
+		// if they aren't redirect them to the home page
+		res.redirect('/login');
+	}
+	
+	function isLoggedIn(req, res, next) {		
 		// if user is authenticated in the session, carry on
 		if (req.isAuthenticated())
 			return next();

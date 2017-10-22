@@ -70,6 +70,7 @@ module.exports = function(passport, auth) {
 						var fost = new Foster();
 					
 						var data = {
+							isAdmin : false,
 							main: {
 								email: username,
 								password: fost.generateHash(pass),
@@ -127,7 +128,7 @@ module.exports = function(passport, auth) {
 																						
 						newUser.local.email = email;
 						newUser.local.password = newUser.generateHash(password);
-						newUser.admin = true;
+						newUser.isAdmin = true;
 						
 						newUser.save(function(err){
 							if (err)
