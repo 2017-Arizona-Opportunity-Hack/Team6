@@ -8,8 +8,13 @@ We decided to go for a native app solution for a few important reasons
 1. **Speed** — Due to the presence of deadlines, it is important that the app is able to quickly adjust. With a native app we are able to let the app run in the background and refresh data. This way, if any new potential animals become available, they will be quickly reflected in the app. A few hours to afew minutes could mean the difference between life and death for the animals 
 2. **Notifications** - Using a native app allows us to make use of push notifications, which in turn allows us to notify potential fosters of new animals. Text message alerts are primitive, unsightly, and not dynamic. Additionally, using a native application would decrease the impact on the user's data plan.
 3. **Ease of Use** - In this situation, the lives of hundreds of animals are at stake, therefore ease of use is a critical component. Having text messages constantly bombard your phone with links to webpages is a clunky experience and can be discouraging for potential fosters. The application we have created makes use of a simplistic interface that is intuitive and suitable for all ages. 
+
 ## Our Implementation
+Throughout every step of the way we focused on reliability, scalability, and deployability to create a strong foundation that can easily be built upon and expanded in the future
+
+
 ## Current Status
+
 ## Going Forward
 
 
