@@ -15,13 +15,9 @@ module.exports = function(app, passport) {
 	});
 
 	// ANDROID LOGIN/SIGNUP
-	app.post('/android_signup', passport.authenticate('android-signup', {
-		failureFlash : true,
-	}));
+	app.post('/android_signup', passport.authenticate('android-signup'));
 	
-	app.post('/android_login', passport.authenticate('android-login', {
-		failureFlash : true,
-	}));
+	app.post('/android_login', passport.authenticate('android-login'));
 	
 	// HANDLES USER LOGIN
 

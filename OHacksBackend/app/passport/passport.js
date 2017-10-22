@@ -54,17 +54,14 @@ module.exports = function(passport, auth) {
 			});
 	}));
 	
-	passport.use('android-signup', new LocalStrategy(
-	{
-		passReqToCallback: true
-	},
-	function(req, username, pass, done){		
+	passport.use('android-signup', new LocalStrategy({
+	function(username, pass, done){		
 		Foster.findOne({ 'Foster.main.email' : username }, function(err, user){					
 					if (err){
 						return done(err);
 					}
 					if (user){
-						return done(null, false, req.flash('signupMessage', 'Entered Email Already Exists'));
+						return done(null, false);
 					}
 					else {
 						var fost = new Foster();
