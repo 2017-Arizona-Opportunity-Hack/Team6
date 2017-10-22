@@ -143,8 +143,8 @@ module.exports = function(app, passport) {
 			preferences : {
 				user_location : "",
 				time_needed_by : "",
-				species: [""],
-				breed : [""],
+				species: [],
+				breed : [],
 				weightRange : { min: -1, max: -1 },
 				ageRange : { min: -1, max: -1 }
 			},
