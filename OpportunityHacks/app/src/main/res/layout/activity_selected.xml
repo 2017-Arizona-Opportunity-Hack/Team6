@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text = "Name: "
+        android:textStyle="bold"
         android:layout_marginLeft = "10dp"
         android:layout_marginBottom = "0dp"
         android:layout_centerHorizontal = "true"
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop = "0dp"
-        android:layout_marginLeft = "30dp"
+        android:layout_marginLeft = "10dp"
         android:layout_marginBottom = "7dp"
         android:id = "@+id/dialog_id"
         android:layout_centerHorizontal = "true"/>
@@ -29,13 +30,14 @@
         android:layout_marginLeft = "10dp"
         android:layout_marginBottom = "0dp"
         android:text = "Time Needed By: "
+        android:textStyle="bold"
         android:layout_centerHorizontal = "true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop = "0dp"
-        android:layout_marginLeft = "30dp"
+        android:layout_marginLeft = "10dp"
         android:layout_marginBottom = "7dp"
         android:id = "@+id/dialog_name"
         android:layout_centerHorizontal = "true"/>
@@ -46,13 +48,14 @@
         android:layout_marginLeft = "10dp"
         android:layout_marginBottom = "0dp"
         android:text = "Location: "
+        android:textStyle="bold"
         android:layout_centerHorizontal = "true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop = "0dp"
-        android:layout_marginLeft = "30dp"
+        android:layout_marginLeft = "10dp"
         android:layout_marginBottom = "5dp"
         android:id = "@+id/dialog_profession"
         android:layout_centerHorizontal = "true"/>
